@@ -24,12 +24,12 @@ namespace System.Reactive.Linq
 
         #region Action<EventHandler>
 
-        public virtual IObservable<EventPattern<object>> FromEventPattern(Action<EventHandler> addHandler, Action<EventHandler> removeHandler)
+        public IObservable<EventPattern<object>> FromEventPattern(Action<EventHandler> addHandler, Action<EventHandler> removeHandler)
         {
             return FromEventPattern_(addHandler, removeHandler, GetSchedulerForCurrentContext());
         }
 
-        public virtual IObservable<EventPattern<object>> FromEventPattern(Action<EventHandler> addHandler, Action<EventHandler> removeHandler, IScheduler scheduler)
+        public IObservable<EventPattern<object>> FromEventPattern(Action<EventHandler> addHandler, Action<EventHandler> removeHandler, IScheduler scheduler)
         {
             return FromEventPattern_(addHandler, removeHandler, scheduler);
         }
@@ -47,12 +47,12 @@ namespace System.Reactive.Linq
 
         #region Action<TDelegate>
 
-        public virtual IObservable<EventPattern<TEventArgs>> FromEventPattern<TDelegate, TEventArgs>(Action<TDelegate> addHandler, Action<TDelegate> removeHandler)
+        public IObservable<EventPattern<TEventArgs>> FromEventPattern<TDelegate, TEventArgs>(Action<TDelegate> addHandler, Action<TDelegate> removeHandler)
         {
             return FromEventPattern_<TDelegate, TEventArgs>(addHandler, removeHandler, GetSchedulerForCurrentContext());
         }
 
-        public virtual IObservable<EventPattern<TEventArgs>> FromEventPattern<TDelegate, TEventArgs>(Action<TDelegate> addHandler, Action<TDelegate> removeHandler, IScheduler scheduler)
+        public IObservable<EventPattern<TEventArgs>> FromEventPattern<TDelegate, TEventArgs>(Action<TDelegate> addHandler, Action<TDelegate> removeHandler, IScheduler scheduler)
         {
             return FromEventPattern_<TDelegate, TEventArgs>(addHandler, removeHandler, scheduler);
         }
@@ -66,12 +66,12 @@ namespace System.Reactive.Linq
 
         #endregion
 
-        public virtual IObservable<EventPattern<TEventArgs>> FromEventPattern<TDelegate, TEventArgs>(Func<EventHandler<TEventArgs>, TDelegate> conversion, Action<TDelegate> addHandler, Action<TDelegate> removeHandler)
+        public IObservable<EventPattern<TEventArgs>> FromEventPattern<TDelegate, TEventArgs>(Func<EventHandler<TEventArgs>, TDelegate> conversion, Action<TDelegate> addHandler, Action<TDelegate> removeHandler)
         {
             return FromEventPattern_(conversion, addHandler, removeHandler, GetSchedulerForCurrentContext());
         }
 
-        public virtual IObservable<EventPattern<TEventArgs>> FromEventPattern<TDelegate, TEventArgs>(Func<EventHandler<TEventArgs>, TDelegate> conversion, Action<TDelegate> addHandler, Action<TDelegate> removeHandler, IScheduler scheduler)
+        public IObservable<EventPattern<TEventArgs>> FromEventPattern<TDelegate, TEventArgs>(Func<EventHandler<TEventArgs>, TDelegate> conversion, Action<TDelegate> addHandler, Action<TDelegate> removeHandler, IScheduler scheduler)
         {
             return FromEventPattern_(conversion, addHandler, removeHandler, scheduler);
         }
@@ -85,12 +85,12 @@ namespace System.Reactive.Linq
 
         #endregion
 
-        public virtual IObservable<EventPattern<TSender, TEventArgs>> FromEventPattern<TDelegate, TSender, TEventArgs>(Action<TDelegate> addHandler, Action<TDelegate> removeHandler)
+        public IObservable<EventPattern<TSender, TEventArgs>> FromEventPattern<TDelegate, TSender, TEventArgs>(Action<TDelegate> addHandler, Action<TDelegate> removeHandler)
         {
             return FromEventPattern_<TDelegate, TSender, TEventArgs>(addHandler, removeHandler, GetSchedulerForCurrentContext());
         }
 
-        public virtual IObservable<EventPattern<TSender, TEventArgs>> FromEventPattern<TDelegate, TSender, TEventArgs>(Action<TDelegate> addHandler, Action<TDelegate> removeHandler, IScheduler scheduler)
+        public IObservable<EventPattern<TSender, TEventArgs>> FromEventPattern<TDelegate, TSender, TEventArgs>(Action<TDelegate> addHandler, Action<TDelegate> removeHandler, IScheduler scheduler)
         {
             return FromEventPattern_<TDelegate, TSender, TEventArgs>(addHandler, removeHandler, scheduler);
         }
@@ -108,12 +108,12 @@ namespace System.Reactive.Linq
 
         #region Action<EventHandler<TEventArgs>>
 
-        public virtual IObservable<EventPattern<TEventArgs>> FromEventPattern<TEventArgs>(Action<EventHandler<TEventArgs>> addHandler, Action<EventHandler<TEventArgs>> removeHandler)
+        public IObservable<EventPattern<TEventArgs>> FromEventPattern<TEventArgs>(Action<EventHandler<TEventArgs>> addHandler, Action<EventHandler<TEventArgs>> removeHandler)
         {
             return FromEventPattern_(addHandler, removeHandler, GetSchedulerForCurrentContext());
         }
 
-        public virtual IObservable<EventPattern<TEventArgs>> FromEventPattern<TEventArgs>(Action<EventHandler<TEventArgs>> addHandler, Action<EventHandler<TEventArgs>> removeHandler, IScheduler scheduler)
+        public IObservable<EventPattern<TEventArgs>> FromEventPattern<TEventArgs>(Action<EventHandler<TEventArgs>> addHandler, Action<EventHandler<TEventArgs>> removeHandler, IScheduler scheduler)
         {
             return FromEventPattern_(addHandler, removeHandler, scheduler);
         }
@@ -138,7 +138,7 @@ namespace System.Reactive.Linq
 #if HAS_TRIMMABILITY_ATTRIBUTES
         [RequiresUnreferencedCode(Constants_Core.EventReflectionTrimIncompatibilityMessage)]
 #endif
-        public virtual IObservable<EventPattern<object>> FromEventPattern(object target, string eventName)
+        public IObservable<EventPattern<object>> FromEventPattern(object target, string eventName)
         {
             return FromEventPattern_(target, eventName, GetSchedulerForCurrentContext());
         }
@@ -146,7 +146,7 @@ namespace System.Reactive.Linq
 #if HAS_TRIMMABILITY_ATTRIBUTES
         [RequiresUnreferencedCode(Constants_Core.EventReflectionTrimIncompatibilityMessage)]
 #endif
-        public virtual IObservable<EventPattern<object>> FromEventPattern(object target, string eventName, IScheduler scheduler)
+        public IObservable<EventPattern<object>> FromEventPattern(object target, string eventName, IScheduler scheduler)
         {
             return FromEventPattern_(target, eventName, scheduler);
         }
@@ -166,7 +166,7 @@ namespace System.Reactive.Linq
 #if HAS_TRIMMABILITY_ATTRIBUTES
         [RequiresUnreferencedCode(Constants_Core.EventReflectionTrimIncompatibilityMessage)]
 #endif
-        public virtual IObservable<EventPattern<TEventArgs>> FromEventPattern<TEventArgs>(object target, string eventName)
+        public IObservable<EventPattern<TEventArgs>> FromEventPattern<TEventArgs>(object target, string eventName)
         {
             return FromEventPattern_<TEventArgs>(target, eventName, GetSchedulerForCurrentContext());
         }
@@ -174,7 +174,7 @@ namespace System.Reactive.Linq
 #if HAS_TRIMMABILITY_ATTRIBUTES
         [RequiresUnreferencedCode(Constants_Core.EventReflectionTrimIncompatibilityMessage)]
 #endif
-        public virtual IObservable<EventPattern<TEventArgs>> FromEventPattern<TEventArgs>(object target, string eventName, IScheduler scheduler)
+        public IObservable<EventPattern<TEventArgs>> FromEventPattern<TEventArgs>(object target, string eventName, IScheduler scheduler)
         {
             return FromEventPattern_<TEventArgs>(target, eventName, scheduler);
         }
@@ -194,7 +194,7 @@ namespace System.Reactive.Linq
 #if HAS_TRIMMABILITY_ATTRIBUTES
         [RequiresUnreferencedCode(Constants_Core.EventReflectionTrimIncompatibilityMessage)]
 #endif
-        public virtual IObservable<EventPattern<TSender, TEventArgs>> FromEventPattern<TSender, TEventArgs>(object target, string eventName)
+        public IObservable<EventPattern<TSender, TEventArgs>> FromEventPattern<TSender, TEventArgs>(object target, string eventName)
         {
             return FromEventPattern_<TSender, TEventArgs>(target, eventName, GetSchedulerForCurrentContext());
         }
@@ -202,7 +202,7 @@ namespace System.Reactive.Linq
 #if HAS_TRIMMABILITY_ATTRIBUTES
         [RequiresUnreferencedCode(Constants_Core.EventReflectionTrimIncompatibilityMessage)]
 #endif
-        public virtual IObservable<EventPattern<TSender, TEventArgs>> FromEventPattern<TSender, TEventArgs>(object target, string eventName, IScheduler scheduler)
+        public IObservable<EventPattern<TSender, TEventArgs>> FromEventPattern<TSender, TEventArgs>(object target, string eventName, IScheduler scheduler)
         {
             return FromEventPattern_<TSender, TEventArgs>(target, eventName, scheduler);
         }
@@ -226,7 +226,7 @@ namespace System.Reactive.Linq
 #if HAS_TRIMMABILITY_ATTRIBUTES
         [RequiresUnreferencedCode(Constants_Core.EventReflectionTrimIncompatibilityMessage)]
 #endif
-        public virtual IObservable<EventPattern<object>> FromEventPattern(Type type, string eventName)
+        public IObservable<EventPattern<object>> FromEventPattern(Type type, string eventName)
         {
             return FromEventPattern_(type, eventName, GetSchedulerForCurrentContext());
         }
@@ -234,7 +234,7 @@ namespace System.Reactive.Linq
 #if HAS_TRIMMABILITY_ATTRIBUTES
         [RequiresUnreferencedCode(Constants_Core.EventReflectionTrimIncompatibilityMessage)]
 #endif
-        public virtual IObservable<EventPattern<object>> FromEventPattern(Type type, string eventName, IScheduler scheduler)
+        public IObservable<EventPattern<object>> FromEventPattern(Type type, string eventName, IScheduler scheduler)
         {
             return FromEventPattern_(type, eventName, scheduler);
         }
@@ -254,7 +254,7 @@ namespace System.Reactive.Linq
 #if HAS_TRIMMABILITY_ATTRIBUTES
         [RequiresUnreferencedCode(Constants_Core.EventReflectionTrimIncompatibilityMessage)]
 #endif
-        public virtual IObservable<EventPattern<TEventArgs>> FromEventPattern<TEventArgs>(Type type, string eventName)
+        public IObservable<EventPattern<TEventArgs>> FromEventPattern<TEventArgs>(Type type, string eventName)
         {
             return FromEventPattern_<TEventArgs>(type, eventName, GetSchedulerForCurrentContext());
         }
@@ -262,7 +262,7 @@ namespace System.Reactive.Linq
 #if HAS_TRIMMABILITY_ATTRIBUTES
         [RequiresUnreferencedCode(Constants_Core.EventReflectionTrimIncompatibilityMessage)]
 #endif
-        public virtual IObservable<EventPattern<TEventArgs>> FromEventPattern<TEventArgs>(Type type, string eventName, IScheduler scheduler)
+        public IObservable<EventPattern<TEventArgs>> FromEventPattern<TEventArgs>(Type type, string eventName, IScheduler scheduler)
         {
             return FromEventPattern_<TEventArgs>(type, eventName, scheduler);
         }
@@ -282,7 +282,7 @@ namespace System.Reactive.Linq
 #if HAS_TRIMMABILITY_ATTRIBUTES
         [RequiresUnreferencedCode(Constants_Core.EventReflectionTrimIncompatibilityMessage)]
 #endif
-        public virtual IObservable<EventPattern<TSender, TEventArgs>> FromEventPattern<TSender, TEventArgs>(Type type, string eventName)
+        public IObservable<EventPattern<TSender, TEventArgs>> FromEventPattern<TSender, TEventArgs>(Type type, string eventName)
         {
             return FromEventPattern_<TSender, TEventArgs>(type, eventName, GetSchedulerForCurrentContext());
         }
@@ -290,7 +290,7 @@ namespace System.Reactive.Linq
 #if HAS_TRIMMABILITY_ATTRIBUTES
         [RequiresUnreferencedCode(Constants_Core.EventReflectionTrimIncompatibilityMessage)]
 #endif
-        public virtual IObservable<EventPattern<TSender, TEventArgs>> FromEventPattern<TSender, TEventArgs>(Type type, string eventName, IScheduler scheduler)
+        public IObservable<EventPattern<TSender, TEventArgs>> FromEventPattern<TSender, TEventArgs>(Type type, string eventName, IScheduler scheduler)
         {
             return FromEventPattern_<TSender, TEventArgs>(type, eventName, scheduler);
         }
@@ -329,12 +329,12 @@ namespace System.Reactive.Linq
 
         #region FromEvent
 
-        public virtual IObservable<TEventArgs> FromEvent<TDelegate, TEventArgs>(Func<Action<TEventArgs>, TDelegate> conversion, Action<TDelegate> addHandler, Action<TDelegate> removeHandler)
+        public IObservable<TEventArgs> FromEvent<TDelegate, TEventArgs>(Func<Action<TEventArgs>, TDelegate> conversion, Action<TDelegate> addHandler, Action<TDelegate> removeHandler)
         {
             return FromEvent_(conversion, addHandler, removeHandler, GetSchedulerForCurrentContext());
         }
 
-        public virtual IObservable<TEventArgs> FromEvent<TDelegate, TEventArgs>(Func<Action<TEventArgs>, TDelegate> conversion, Action<TDelegate> addHandler, Action<TDelegate> removeHandler, IScheduler scheduler)
+        public IObservable<TEventArgs> FromEvent<TDelegate, TEventArgs>(Func<Action<TEventArgs>, TDelegate> conversion, Action<TDelegate> addHandler, Action<TDelegate> removeHandler, IScheduler scheduler)
         {
             return FromEvent_(conversion, addHandler, removeHandler, scheduler);
         }
@@ -348,12 +348,12 @@ namespace System.Reactive.Linq
 
         #endregion
 
-        public virtual IObservable<TEventArgs> FromEvent<TDelegate, TEventArgs>(Action<TDelegate> addHandler, Action<TDelegate> removeHandler)
+        public IObservable<TEventArgs> FromEvent<TDelegate, TEventArgs>(Action<TDelegate> addHandler, Action<TDelegate> removeHandler)
         {
             return FromEvent_<TDelegate, TEventArgs>(addHandler, removeHandler, GetSchedulerForCurrentContext());
         }
 
-        public virtual IObservable<TEventArgs> FromEvent<TDelegate, TEventArgs>(Action<TDelegate> addHandler, Action<TDelegate> removeHandler, IScheduler scheduler)
+        public IObservable<TEventArgs> FromEvent<TDelegate, TEventArgs>(Action<TDelegate> addHandler, Action<TDelegate> removeHandler, IScheduler scheduler)
         {
             return FromEvent_<TDelegate, TEventArgs>(addHandler, removeHandler, scheduler);
         }
@@ -367,12 +367,12 @@ namespace System.Reactive.Linq
 
         #endregion
 
-        public virtual IObservable<TEventArgs> FromEvent<TEventArgs>(Action<Action<TEventArgs>> addHandler, Action<Action<TEventArgs>> removeHandler)
+        public IObservable<TEventArgs> FromEvent<TEventArgs>(Action<Action<TEventArgs>> addHandler, Action<Action<TEventArgs>> removeHandler)
         {
             return FromEvent_(addHandler, removeHandler, GetSchedulerForCurrentContext());
         }
 
-        public virtual IObservable<TEventArgs> FromEvent<TEventArgs>(Action<Action<TEventArgs>> addHandler, Action<Action<TEventArgs>> removeHandler, IScheduler scheduler)
+        public IObservable<TEventArgs> FromEvent<TEventArgs>(Action<Action<TEventArgs>> addHandler, Action<Action<TEventArgs>> removeHandler, IScheduler scheduler)
         {
             return FromEvent_(addHandler, removeHandler, scheduler);
         }
@@ -386,12 +386,12 @@ namespace System.Reactive.Linq
 
         #endregion
 
-        public virtual IObservable<Unit> FromEvent(Action<Action> addHandler, Action<Action> removeHandler)
+        public IObservable<Unit> FromEvent(Action<Action> addHandler, Action<Action> removeHandler)
         {
             return FromEvent_(addHandler, removeHandler, GetSchedulerForCurrentContext());
         }
 
-        public virtual IObservable<Unit> FromEvent(Action<Action> addHandler, Action<Action> removeHandler, IScheduler scheduler)
+        public IObservable<Unit> FromEvent(Action<Action> addHandler, Action<Action> removeHandler, IScheduler scheduler)
         {
             return FromEvent_(addHandler, removeHandler, scheduler);
         }

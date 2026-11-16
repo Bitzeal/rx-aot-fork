@@ -10,17 +10,17 @@ namespace System.Reactive.Linq
 {
     internal partial class QueryLanguage
     {
-        public virtual AsyncSubject<TSource> GetAwaiter<TSource>(IObservable<TSource> source)
+        public AsyncSubject<TSource> GetAwaiter<TSource>(IObservable<TSource> source)
         {
             return RunAsync(source, CancellationToken.None);
         }
 
-        public virtual AsyncSubject<TSource> GetAwaiter<TSource>(IConnectableObservable<TSource> source)
+        public AsyncSubject<TSource> GetAwaiter<TSource>(IConnectableObservable<TSource> source)
         {
             return RunAsync(source, CancellationToken.None);
         }
 
-        public virtual AsyncSubject<TSource> RunAsync<TSource>(IObservable<TSource> source, CancellationToken cancellationToken)
+        public AsyncSubject<TSource> RunAsync<TSource>(IObservable<TSource> source, CancellationToken cancellationToken)
         {
             var s = new AsyncSubject<TSource>();
 
@@ -39,7 +39,7 @@ namespace System.Reactive.Linq
             return s;
         }
 
-        public virtual AsyncSubject<TSource> RunAsync<TSource>(IConnectableObservable<TSource> source, CancellationToken cancellationToken)
+        public AsyncSubject<TSource> RunAsync<TSource>(IConnectableObservable<TSource> source, CancellationToken cancellationToken)
         {
             var s = new AsyncSubject<TSource>();
 

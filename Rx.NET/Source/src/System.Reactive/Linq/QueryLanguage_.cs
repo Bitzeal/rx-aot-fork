@@ -4,7 +4,7 @@
 
 namespace System.Reactive.Linq
 {
-    internal partial class QueryLanguage : IQueryLanguage
+    internal sealed partial class QueryLanguage
     {
     }
 }

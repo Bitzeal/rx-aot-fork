@@ -24,7 +24,7 @@ for (int i = 3; i <= 16; i++)
     var sources = string.Join(", ", Enumerable.Range(1, i).Select(j => "source" + j));
 
 #>
-        public virtual IObservable<TResult> Zip<<#=genArgs#>, TResult>(<#=parameters#>, Func<<#=genArgs#>, TResult> resultSelector)
+        public IObservable<TResult> Zip<<#=genArgs#>, TResult>(<#=parameters#>, Func<<#=genArgs#>, TResult> resultSelector)
         {
             return new Zip<<#=genArgs#>, TResult>(<#=sources#>, resultSelector);
         }
@@ -49,7 +49,7 @@ for (int i = 2; i <= 16; i++)
     var extra = i == 2 ? ".Observable" : "";
 
 #>
-        public virtual IObservable<<#=tuple#>> Zip<<#=genArgs#>>(<#=parameters#>)
+        public IObservable<<#=tuple#>> Zip<<#=genArgs#>>(<#=parameters#>)
         {
             return new Zip<<#=genArgs#>, <#=tuple#>><#=extra#>(<#=sources#>, <#=selector#>);
         }

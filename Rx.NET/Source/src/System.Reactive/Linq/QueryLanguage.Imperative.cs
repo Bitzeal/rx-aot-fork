@@ -16,23 +16,23 @@ namespace System.Reactive.Linq
     {
         #region ForEachAsync
 
-        public virtual Task ForEachAsync<TSource>(IObservable<TSource> source, Action<TSource> onNext)
+        public Task ForEachAsync<TSource>(IObservable<TSource> source, Action<TSource> onNext)
         {
             return ForEachAsync_(source, onNext, CancellationToken.None);
         }
 
-        public virtual Task ForEachAsync<TSource>(IObservable<TSource> source, Action<TSource> onNext, CancellationToken cancellationToken)
+        public Task ForEachAsync<TSource>(IObservable<TSource> source, Action<TSource> onNext, CancellationToken cancellationToken)
         {
             return ForEachAsync_(source, onNext, cancellationToken);
         }
 
-        public virtual Task ForEachAsync<TSource>(IObservable<TSource> source, Action<TSource, int> onNext)
+        public Task ForEachAsync<TSource>(IObservable<TSource> source, Action<TSource, int> onNext)
         {
             var i = 0;
             return ForEachAsync_(source, x => onNext(x, checked(i++)), CancellationToken.None);
         }
 
-        public virtual Task ForEachAsync<TSource>(IObservable<TSource> source, Action<TSource, int> onNext, CancellationToken cancellationToken)
+        public Task ForEachAsync<TSource>(IObservable<TSource> source, Action<TSource, int> onNext, CancellationToken cancellationToken)
         {
             var i = 0;
             return ForEachAsync_(source, x => onNext(x, checked(i++)), cancellationToken);
@@ -127,19 +127,19 @@ namespace System.Reactive.Linq
 
         #region + Case +
 
-        public virtual IObservable<TResult> Case<TValue, TResult>(Func<TValue> selector, IDictionary<TValue, IObservable<TResult>> sources)
+        public IObservable<TResult> Case<TValue, TResult>(Func<TValue> selector, IDictionary<TValue, IObservable<TResult>> sources)
             where TValue : notnull
         {
             return Case(selector, sources, Empty<TResult>());
         }
 
-        public virtual IObservable<TResult> Case<TValue, TResult>(Func<TValue> selector, IDictionary<TValue, IObservable<TResult>> sources, IScheduler scheduler)
+        public IObservable<TResult> Case<TValue, TResult>(Func<TValue> selector, IDictionary<TValue, IObservable<TResult>> sources, IScheduler scheduler)
             where TValue : notnull
         {
             return Case(selector, sources, Empty<TResult>(scheduler));
         }
 
-        public virtual IObservable<TResult> Case<TValue, TResult>(Func<TValue> selector, IDictionary<TValue, IObservable<TResult>> sources, IObservable<TResult> defaultSource)
+        public IObservable<TResult> Case<TValue, TResult>(Func<TValue> selector, IDictionary<TValue, IObservable<TResult>> sources, IObservable<TResult> defaultSource)
             where TValue : notnull
         {
             return new Case<TValue, TResult>(selector, sources, defaultSource);
@@ -149,7 +149,7 @@ namespace System.Reactive.Linq
 
         #region + DoWhile +
 
-        public virtual IObservable<TSource> DoWhile<TSource>(IObservable<TSource> source, Func<bool> condition)
+        public IObservable<TSource> DoWhile<TSource>(IObservable<TSource> source, Func<bool> condition)
         {
             return new DoWhile<TSource>(source, condition);
         }
@@ -158,7 +158,7 @@ namespace System.Reactive.Linq
 
         #region + For +
 
-        public virtual IObservable<TResult> For<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, IObservable<TResult>> resultSelector)
+        public IObservable<TResult> For<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, IObservable<TResult>> resultSelector)
         {
             return new For<TSource, TResult>(source, resultSelector);
         }
@@ -167,17 +167,17 @@ namespace System.Reactive.Linq
 
         #region + If +
 
-        public virtual IObservable<TResult> If<TResult>(Func<bool> condition, IObservable<TResult> thenSource)
+        public IObservable<TResult> If<TResult>(Func<bool> condition, IObservable<TResult> thenSource)
         {
             return If(condition, thenSource, Empty<TResult>());
         }
 
-        public virtual IObservable<TResult> If<TResult>(Func<bool> condition, IObservable<TResult> thenSource, IScheduler scheduler)
+        public IObservable<TResult> If<TResult>(Func<bool> condition, IObservable<TResult> thenSource, IScheduler scheduler)
         {
             return If(condition, thenSource, Empty<TResult>(scheduler));
         }
 
-        public virtual IObservable<TResult> If<TResult>(Func<bool> condition, IObservable<TResult> thenSource, IObservable<TResult> elseSource)
+        public IObservable<TResult> If<TResult>(Func<bool> condition, IObservable<TResult> thenSource, IObservable<TResult> elseSource)
         {
             return new If<TResult>(condition, thenSource, elseSource);
         }
@@ -186,7 +186,7 @@ namespace System.Reactive.Linq
 
         #region + While +
 
-        public virtual IObservable<TSource> While<TSource>(Func<bool> condition, IObservable<TSource> source)
+        public IObservable<TSource> While<TSource>(Func<bool> condition, IObservable<TSource> source)
         {
             return new While<TSource>(condition, source);
         }

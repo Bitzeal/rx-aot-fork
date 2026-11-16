@@ -16,7 +16,7 @@ namespace System.Reactive.Linq
     {
         #region - Create -
 
-        public virtual IObservable<TSource> Create<TSource>(Func<IObserver<TSource>, IDisposable> subscribe)
+        public IObservable<TSource> Create<TSource>(Func<IObserver<TSource>, IDisposable> subscribe)
         {
             return new CreateWithDisposableObservable<TSource>(subscribe);
         }
@@ -36,7 +36,7 @@ namespace System.Reactive.Linq
             }
         }
 
-        public virtual IObservable<TSource> Create<TSource>(Func<IObserver<TSource>, Action> subscribe)
+        public IObservable<TSource> Create<TSource>(Func<IObserver<TSource>, Action> subscribe)
         {
             return new CreateWithActionDisposable<TSource>(subscribe);
         }
@@ -61,7 +61,7 @@ namespace System.Reactive.Linq
 
         #region - CreateAsync -
 
-        public virtual IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, CancellationToken, Task> subscribeAsync)
+        public IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, CancellationToken, Task> subscribeAsync)
         {
             return new CreateWithTaskTokenObservable<TResult>(subscribeAsync);
         }
@@ -124,12 +124,12 @@ namespace System.Reactive.Linq
             }
         }
 
-        public virtual IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, Task> subscribeAsync)
+        public IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, Task> subscribeAsync)
         {
             return Create<TResult>((observer, token) => subscribeAsync(observer));
         }
 
-        public virtual IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, CancellationToken, Task<IDisposable>> subscribeAsync)
+        public IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, CancellationToken, Task<IDisposable>> subscribeAsync)
         {
             return new CreateWithTaskDisposable<TResult>(subscribeAsync);
         }
@@ -201,12 +201,12 @@ namespace System.Reactive.Linq
             }
         }
 
-        public virtual IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, Task<IDisposable>> subscribeAsync)
+        public IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, Task<IDisposable>> subscribeAsync)
         {
             return Create<TResult>((observer, token) => subscribeAsync(observer));
         }
 
-        public virtual IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, CancellationToken, Task<Action>> subscribeAsync)
+        public IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, CancellationToken, Task<Action>> subscribeAsync)
         {
             return new CreateWithTaskActionObservable<TResult>(subscribeAsync);
         }
@@ -281,7 +281,7 @@ namespace System.Reactive.Linq
             }
         }
 
-        public virtual IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, Task<Action>> subscribeAsync)
+        public IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, Task<Action>> subscribeAsync)
         {
             return Create<TResult>((observer, token) => subscribeAsync(observer));
         }
@@ -290,7 +290,7 @@ namespace System.Reactive.Linq
 
         #region + Defer +
 
-        public virtual IObservable<TValue> Defer<TValue>(Func<IObservable<TValue>> observableFactory)
+        public IObservable<TValue> Defer<TValue>(Func<IObservable<TValue>> observableFactory)
         {
             return new Defer<TValue>(observableFactory);
         }
@@ -299,12 +299,12 @@ namespace System.Reactive.Linq
 
         #region + DeferAsync +
 
-        public virtual IObservable<TValue> Defer<TValue>(Func<Task<IObservable<TValue>>> observableFactoryAsync, bool ignoreExceptionsAfterUnsubscribe)
+        public IObservable<TValue> Defer<TValue>(Func<Task<IObservable<TValue>>> observableFactoryAsync, bool ignoreExceptionsAfterUnsubscribe)
         {
             return Defer(() => StartAsync(observableFactoryAsync, new TaskObservationOptions.Value(null, ignoreExceptionsAfterUnsubscribe)).Merge());
         }
 
-        public virtual IObservable<TValue> Defer<TValue>(Func<CancellationToken, Task<IObservable<TValue>>> observableFactoryAsync, bool ignoreExceptionsAfterUnsubscribe)
+        public IObservable<TValue> Defer<TValue>(Func<CancellationToken, Task<IObservable<TValue>>> observableFactoryAsync, bool ignoreExceptionsAfterUnsubscribe)
         {
             return Defer(() => StartAsync(observableFactoryAsync, new TaskObservationOptions.Value(null, ignoreExceptionsAfterUnsubscribe)).Merge());
         }
@@ -313,12 +313,12 @@ namespace System.Reactive.Linq
 
         #region + Empty +
 
-        public virtual IObservable<TResult> Empty<TResult>()
+        public IObservable<TResult> Empty<TResult>()
         {
             return EmptyDirect<TResult>.Instance;
         }
 
-        public virtual IObservable<TResult> Empty<TResult>(IScheduler scheduler)
+        public IObservable<TResult> Empty<TResult>(IScheduler scheduler)
         {
             return new Empty<TResult>(scheduler);
         }
@@ -327,12 +327,12 @@ namespace System.Reactive.Linq
 
         #region + Generate +
 
-        public virtual IObservable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, bool> condition, Func<TState, TState> iterate, Func<TState, TResult> resultSelector)
+        public IObservable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, bool> condition, Func<TState, TState> iterate, Func<TState, TResult> resultSelector)
         {
             return new Generate<TState, TResult>.NoTime(initialState, condition, iterate, resultSelector, SchedulerDefaults.Iteration);
         }
 
-        public virtual IObservable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, bool> condition, Func<TState, TState> iterate, Func<TState, TResult> resultSelector, IScheduler scheduler)
+        public IObservable<TResult> Generate<TState, TResult>(TState initialState, Func<TState, bool> condition, Func<TState, TState> iterate, Func<TState, TResult> resultSelector, IScheduler scheduler)
         {
             return new Generate<TState, TResult>.NoTime(initialState, condition, iterate, resultSelector, scheduler);
         }
@@ -341,7 +341,7 @@ namespace System.Reactive.Linq
 
         #region + Never +
 
-        public virtual IObservable<TResult> Never<TResult>()
+        public IObservable<TResult> Never<TResult>()
         {
             return ObservableImpl.Never<TResult>.Default;
         }
@@ -350,12 +350,12 @@ namespace System.Reactive.Linq
 
         #region + Range +
 
-        public virtual IObservable<int> Range(int start, int count)
+        public IObservable<int> Range(int start, int count)
         {
             return Range_(start, count, SchedulerDefaults.Iteration);
         }
 
-        public virtual IObservable<int> Range(int start, int count, IScheduler scheduler)
+        public IObservable<int> Range(int start, int count, IScheduler scheduler)
         {
             return Range_(start, count, scheduler);
         }
@@ -374,12 +374,12 @@ namespace System.Reactive.Linq
 
         #region + Repeat +
 
-        public virtual IObservable<TResult> Repeat<TResult>(TResult value)
+        public IObservable<TResult> Repeat<TResult>(TResult value)
         {
             return Repeat_(value, SchedulerDefaults.Iteration);
         }
 
-        public virtual IObservable<TResult> Repeat<TResult>(TResult value, IScheduler scheduler)
+        public IObservable<TResult> Repeat<TResult>(TResult value, IScheduler scheduler)
         {
             return Repeat_(value, scheduler);
         }
@@ -394,12 +394,12 @@ namespace System.Reactive.Linq
             return new Repeat<TResult>.ForeverRecursive(value, scheduler);
         }
 
-        public virtual IObservable<TResult> Repeat<TResult>(TResult value, int repeatCount)
+        public IObservable<TResult> Repeat<TResult>(TResult value, int repeatCount)
         {
             return Repeat_(value, repeatCount, SchedulerDefaults.Iteration);
         }
 
-        public virtual IObservable<TResult> Repeat<TResult>(TResult value, int repeatCount, IScheduler scheduler)
+        public IObservable<TResult> Repeat<TResult>(TResult value, int repeatCount, IScheduler scheduler)
         {
             return Repeat_(value, repeatCount, scheduler);
         }
@@ -418,7 +418,7 @@ namespace System.Reactive.Linq
 
         #region + Return +
 
-        public virtual IObservable<TResult> Return<TResult>(TResult value)
+        public IObservable<TResult> Return<TResult>(TResult value)
         {
             // ConstantTimeOperations is a mutable field so we'd have to
             // check if it points to the immediate scheduler instance
@@ -426,7 +426,7 @@ namespace System.Reactive.Linq
             return Return(value, SchedulerDefaults.ConstantTimeOperations);
         }
 
-        public virtual IObservable<TResult> Return<TResult>(TResult value, IScheduler scheduler)
+        public IObservable<TResult> Return<TResult>(TResult value, IScheduler scheduler)
         {
             if (scheduler == ImmediateScheduler.Instance)
             {
@@ -439,7 +439,7 @@ namespace System.Reactive.Linq
 
         #region + Throw +
 
-        public virtual IObservable<TResult> Throw<TResult>(Exception exception)
+        public IObservable<TResult> Throw<TResult>(Exception exception)
         {
             // ConstantTimeOperations is a mutable field so we'd have to
             // check if it points to the immediate scheduler instance
@@ -447,7 +447,7 @@ namespace System.Reactive.Linq
             return Throw<TResult>(exception, SchedulerDefaults.ConstantTimeOperations);
         }
 
-        public virtual IObservable<TResult> Throw<TResult>(Exception exception, IScheduler scheduler)
+        public IObservable<TResult> Throw<TResult>(Exception exception, IScheduler scheduler)
         {
             if (scheduler == ImmediateScheduler.Instance)
             {
@@ -460,7 +460,7 @@ namespace System.Reactive.Linq
 
         #region + Using +
 
-        public virtual IObservable<TSource> Using<TSource, TResource>(Func<TResource> resourceFactory, Func<TResource, IObservable<TSource>> observableFactory) where TResource : IDisposable
+        public IObservable<TSource> Using<TSource, TResource>(Func<TResource> resourceFactory, Func<TResource, IObservable<TSource>> observableFactory) where TResource : IDisposable
         {
             return new Using<TSource, TResource>(resourceFactory, observableFactory);
         }
@@ -469,7 +469,7 @@ namespace System.Reactive.Linq
 
         #region - UsingAsync -
 
-        public virtual IObservable<TSource> Using<TSource, TResource>(Func<CancellationToken, Task<TResource>> resourceFactoryAsync, Func<TResource, CancellationToken, Task<IObservable<TSource>>> observableFactoryAsync) where TResource : IDisposable
+        public IObservable<TSource> Using<TSource, TResource>(Func<CancellationToken, Task<TResource>> resourceFactoryAsync, Func<TResource, CancellationToken, Task<IObservable<TSource>>> observableFactoryAsync) where TResource : IDisposable
         {
             return Observable.FromAsync(resourceFactoryAsync)
                 .SelectMany(resource =>

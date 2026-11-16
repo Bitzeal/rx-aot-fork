@@ -13,12 +13,12 @@ namespace System.Reactive.Linq
     {
         #region + Multicast +
 
-        public virtual IConnectableObservable<TResult> Multicast<TSource, TResult>(IObservable<TSource> source, ISubject<TSource, TResult> subject)
+        public IConnectableObservable<TResult> Multicast<TSource, TResult>(IObservable<TSource> source, ISubject<TSource, TResult> subject)
         {
             return new ConnectableObservable<TSource, TResult>(source, subject);
         }
 
-        public virtual IObservable<TResult> Multicast<TSource, TIntermediate, TResult>(IObservable<TSource> source, Func<ISubject<TSource, TIntermediate>> subjectSelector, Func<IObservable<TIntermediate>, IObservable<TResult>> selector)
+        public IObservable<TResult> Multicast<TSource, TIntermediate, TResult>(IObservable<TSource> source, Func<ISubject<TSource, TIntermediate>> subjectSelector, Func<IObservable<TIntermediate>, IObservable<TResult>> selector)
         {
             return new Multicast<TSource, TIntermediate, TResult>(source, subjectSelector, selector);
         }
@@ -27,22 +27,22 @@ namespace System.Reactive.Linq
 
         #region + Publish +
 
-        public virtual IConnectableObservable<TSource> Publish<TSource>(IObservable<TSource> source)
+        public IConnectableObservable<TSource> Publish<TSource>(IObservable<TSource> source)
         {
             return source.Multicast(new Subject<TSource>());
         }
 
-        public virtual IObservable<TResult> Publish<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector)
+        public IObservable<TResult> Publish<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector)
         {
             return source.Multicast(() => new Subject<TSource>(), selector);
         }
 
-        public virtual IConnectableObservable<TSource> Publish<TSource>(IObservable<TSource> source, TSource initialValue)
+        public IConnectableObservable<TSource> Publish<TSource>(IObservable<TSource> source, TSource initialValue)
         {
             return source.Multicast(new BehaviorSubject<TSource>(initialValue));
         }
 
-        public virtual IObservable<TResult> Publish<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, TSource initialValue)
+        public IObservable<TResult> Publish<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, TSource initialValue)
         {
             return source.Multicast(() => new BehaviorSubject<TSource>(initialValue), selector);
         }
@@ -51,12 +51,12 @@ namespace System.Reactive.Linq
 
         #region + PublishLast +
 
-        public virtual IConnectableObservable<TSource> PublishLast<TSource>(IObservable<TSource> source)
+        public IConnectableObservable<TSource> PublishLast<TSource>(IObservable<TSource> source)
         {
             return source.Multicast(new AsyncSubject<TSource>());
         }
 
-        public virtual IObservable<TResult> PublishLast<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector)
+        public IObservable<TResult> PublishLast<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector)
         {
             return source.Multicast(() => new AsyncSubject<TSource>(), selector);
         }
@@ -65,32 +65,32 @@ namespace System.Reactive.Linq
 
         #region + RefCount +
 
-        public virtual IObservable<TSource> RefCount<TSource>(IConnectableObservable<TSource> source)
+        public IObservable<TSource> RefCount<TSource>(IConnectableObservable<TSource> source)
         {
             return RefCount(source, 1);
         }
 
-        public virtual IObservable<TSource> RefCount<TSource>(IConnectableObservable<TSource> source, TimeSpan disconnectTime)
+        public IObservable<TSource> RefCount<TSource>(IConnectableObservable<TSource> source, TimeSpan disconnectTime)
         {
             return RefCount(source, disconnectTime, Scheduler.Default);
         }
 
-        public virtual IObservable<TSource> RefCount<TSource>(IConnectableObservable<TSource> source, TimeSpan disconnectTime, IScheduler scheduler)
+        public IObservable<TSource> RefCount<TSource>(IConnectableObservable<TSource> source, TimeSpan disconnectTime, IScheduler scheduler)
         {
             return RefCount(source, 1, disconnectTime, scheduler);
         }
 
-        public virtual IObservable<TSource> RefCount<TSource>(IConnectableObservable<TSource> source, int minObservers)
+        public IObservable<TSource> RefCount<TSource>(IConnectableObservable<TSource> source, int minObservers)
         {
             return new RefCount<TSource>.Eager(source, minObservers);
         }
 
-        public virtual IObservable<TSource> RefCount<TSource>(IConnectableObservable<TSource> source, int minObservers, TimeSpan disconnectTime)
+        public IObservable<TSource> RefCount<TSource>(IConnectableObservable<TSource> source, int minObservers, TimeSpan disconnectTime)
         {
             return RefCount(source, minObservers, disconnectTime, Scheduler.Default);
         }
 
-        public virtual IObservable<TSource> RefCount<TSource>(IConnectableObservable<TSource> source, int minObservers, TimeSpan disconnectTime, IScheduler scheduler)
+        public IObservable<TSource> RefCount<TSource>(IConnectableObservable<TSource> source, int minObservers, TimeSpan disconnectTime, IScheduler scheduler)
         {
             return new RefCount<TSource>.Lazy(source, disconnectTime, scheduler, minObservers);
         }
@@ -99,7 +99,7 @@ namespace System.Reactive.Linq
 
         #region + AutoConnect +
 
-        public virtual IObservable<TSource> AutoConnect<TSource>(IConnectableObservable<TSource> source, int minObservers = 1, Action<IDisposable>? onConnect = null)
+        public IObservable<TSource> AutoConnect<TSource>(IConnectableObservable<TSource> source, int minObservers = 1, Action<IDisposable>? onConnect = null)
         {
             if (minObservers <= 0)
             {
@@ -116,82 +116,82 @@ namespace System.Reactive.Linq
 
         #region + Replay +
 
-        public virtual IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source)
+        public IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source)
         {
             return source.Multicast(new ReplaySubject<TSource>());
         }
 
-        public virtual IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, IScheduler scheduler)
+        public IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, IScheduler scheduler)
         {
             return source.Multicast(new ReplaySubject<TSource>(scheduler));
         }
 
-        public virtual IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector)
+        public IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector)
         {
             return source.Multicast(() => new ReplaySubject<TSource>(), selector);
         }
 
-        public virtual IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, IScheduler scheduler)
+        public IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, IScheduler scheduler)
         {
             return source.Multicast(() => new ReplaySubject<TSource>(scheduler), selector);
         }
 
-        public virtual IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, TimeSpan window)
+        public IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, TimeSpan window)
         {
             return source.Multicast(new ReplaySubject<TSource>(window));
         }
 
-        public virtual IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, TimeSpan window)
+        public IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, TimeSpan window)
         {
             return source.Multicast(() => new ReplaySubject<TSource>(window), selector);
         }
 
-        public virtual IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, TimeSpan window, IScheduler scheduler)
+        public IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, TimeSpan window, IScheduler scheduler)
         {
             return source.Multicast(new ReplaySubject<TSource>(window, scheduler));
         }
 
-        public virtual IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, TimeSpan window, IScheduler scheduler)
+        public IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, TimeSpan window, IScheduler scheduler)
         {
             return source.Multicast(() => new ReplaySubject<TSource>(window, scheduler), selector);
         }
 
-        public virtual IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, int bufferSize, IScheduler scheduler)
+        public IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, int bufferSize, IScheduler scheduler)
         {
             return source.Multicast(new ReplaySubject<TSource>(bufferSize, scheduler));
         }
 
-        public virtual IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, int bufferSize, IScheduler scheduler)
+        public IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, int bufferSize, IScheduler scheduler)
         {
             return source.Multicast(() => new ReplaySubject<TSource>(bufferSize, scheduler), selector);
         }
 
-        public virtual IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, int bufferSize)
+        public IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, int bufferSize)
         {
             return source.Multicast(new ReplaySubject<TSource>(bufferSize));
         }
 
-        public virtual IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, int bufferSize)
+        public IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, int bufferSize)
         {
             return source.Multicast(() => new ReplaySubject<TSource>(bufferSize), selector);
         }
 
-        public virtual IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, int bufferSize, TimeSpan window)
+        public IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, int bufferSize, TimeSpan window)
         {
             return source.Multicast(new ReplaySubject<TSource>(bufferSize, window));
         }
 
-        public virtual IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, int bufferSize, TimeSpan window)
+        public IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, int bufferSize, TimeSpan window)
         {
             return source.Multicast(() => new ReplaySubject<TSource>(bufferSize, window), selector);
         }
 
-        public virtual IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, int bufferSize, TimeSpan window, IScheduler scheduler)
+        public IConnectableObservable<TSource> Replay<TSource>(IObservable<TSource> source, int bufferSize, TimeSpan window, IScheduler scheduler)
         {
             return source.Multicast(new ReplaySubject<TSource>(bufferSize, window, scheduler));
         }
 
-        public virtual IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, int bufferSize, TimeSpan window, IScheduler scheduler)
+        public IObservable<TResult> Replay<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> selector, int bufferSize, TimeSpan window, IScheduler scheduler)
         {
             return source.Multicast(() => new ReplaySubject<TSource>(bufferSize, window, scheduler), selector);
         }

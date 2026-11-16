@@ -12,7 +12,7 @@ namespace System.Reactive.Linq
     {
         #region And
 
-        public virtual Pattern<TLeft, TRight> And<TLeft, TRight>(IObservable<TLeft> left, IObservable<TRight> right)
+        public Pattern<TLeft, TRight> And<TLeft, TRight>(IObservable<TLeft> left, IObservable<TRight> right)
         {
             return new Pattern<TLeft, TRight>(left, right);
         }
@@ -21,7 +21,7 @@ namespace System.Reactive.Linq
 
         #region Then
 
-        public virtual Plan<TResult> Then<TSource, TResult>(IObservable<TSource> source, Func<TSource, TResult> selector)
+        public Plan<TResult> Then<TSource, TResult>(IObservable<TSource> source, Func<TSource, TResult> selector)
         {
             return new Pattern<TSource>(source).Then(selector);
         }
@@ -30,12 +30,12 @@ namespace System.Reactive.Linq
 
         #region When
 
-        public virtual IObservable<TResult> When<TResult>(params Plan<TResult>[] plans)
+        public IObservable<TResult> When<TResult>(params Plan<TResult>[] plans)
         {
             return When((IEnumerable<Plan<TResult>>)plans);
         }
 
-        public virtual IObservable<TResult> When<TResult>(IEnumerable<Plan<TResult>> plans)
+        public IObservable<TResult> When<TResult>(IEnumerable<Plan<TResult>> plans)
         {
             return new WhenObservable<TResult>(plans);
         }

@@ -14,7 +14,7 @@ namespace System.Reactive.Linq
     {
         #region - Chunkify -
 
-        public virtual IEnumerable<IList<TSource>> Chunkify<TSource>(IObservable<TSource> source)
+        public IEnumerable<IList<TSource>> Chunkify<TSource>(IObservable<TSource> source)
         {
             return source.Collect<TSource, IList<TSource>>(() => [], (lst, x) => { lst.Add(x); return lst; }, _ => []);
         }
@@ -23,12 +23,12 @@ namespace System.Reactive.Linq
 
         #region + Collect +
 
-        public virtual IEnumerable<TResult> Collect<TSource, TResult>(IObservable<TSource> source, Func<TResult> newCollector, Func<TResult, TSource, TResult> merge)
+        public IEnumerable<TResult> Collect<TSource, TResult>(IObservable<TSource> source, Func<TResult> newCollector, Func<TResult, TSource, TResult> merge)
         {
             return Collect_(source, newCollector, merge, _ => newCollector());
         }
 
-        public virtual IEnumerable<TResult> Collect<TSource, TResult>(IObservable<TSource> source, Func<TResult> getInitialCollector, Func<TResult, TSource, TResult> merge, Func<TResult, TResult> getNewCollector)
+        public IEnumerable<TResult> Collect<TSource, TResult>(IObservable<TSource> source, Func<TResult> getInitialCollector, Func<TResult, TSource, TResult> merge, Func<TResult, TResult> getNewCollector)
         {
             return Collect_(source, getInitialCollector, merge, getNewCollector);
         }
@@ -42,12 +42,12 @@ namespace System.Reactive.Linq
 
         #region First
 
-        public virtual TSource First<TSource>(IObservable<TSource> source)
+        public TSource First<TSource>(IObservable<TSource> source)
         {
             return FirstOrDefaultInternal(source, throwOnEmpty: true)!;
         }
 
-        public virtual TSource First<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
+        public TSource First<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
         {
             return First(Where(source, predicate));
         }
@@ -57,13 +57,13 @@ namespace System.Reactive.Linq
         #region FirstOrDefault
 
         [return: MaybeNull]
-        public virtual TSource FirstOrDefault<TSource>(IObservable<TSource> source)
+        public TSource FirstOrDefault<TSource>(IObservable<TSource> source)
         {
             return FirstOrDefaultInternal(source, throwOnEmpty: false);
         }
 
         [return: MaybeNull]
-        public virtual TSource FirstOrDefault<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
+        public TSource FirstOrDefault<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
         {
             return FirstOrDefault(Where(source, predicate));
         }
@@ -92,7 +92,7 @@ namespace System.Reactive.Linq
 
         #region + ForEach +
 
-        public virtual void ForEach<TSource>(IObservable<TSource> source, Action<TSource> onNext)
+        public void ForEach<TSource>(IObservable<TSource> source, Action<TSource> onNext)
         {
             using var sink = new ForEach<TSource>.Observer(onNext);
 
@@ -104,7 +104,7 @@ namespace System.Reactive.Linq
             sink.Error?.Throw();
         }
 
-        public virtual void ForEach<TSource>(IObservable<TSource> source, Action<TSource, int> onNext)
+        public void ForEach<TSource>(IObservable<TSource> source, Action<TSource, int> onNext)
         {
             using var sink = new ForEach<TSource>.ObserverIndexed(onNext);
 
@@ -120,7 +120,7 @@ namespace System.Reactive.Linq
 
         #region + GetEnumerator +
 
-        public virtual IEnumerator<TSource> GetEnumerator<TSource>(IObservable<TSource> source)
+        public IEnumerator<TSource> GetEnumerator<TSource>(IObservable<TSource> source)
         {
             var e = new GetEnumerator<TSource>();
             return e.Run(source);
@@ -130,12 +130,12 @@ namespace System.Reactive.Linq
 
         #region Last
 
-        public virtual TSource Last<TSource>(IObservable<TSource> source)
+        public TSource Last<TSource>(IObservable<TSource> source)
         {
             return LastOrDefaultInternal(source, throwOnEmpty: true)!;
         }
 
-        public virtual TSource Last<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
+        public TSource Last<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
         {
             return Last(Where(source, predicate));
         }
@@ -145,13 +145,13 @@ namespace System.Reactive.Linq
         #region LastOrDefault
 
         [return: MaybeNull]
-        public virtual TSource LastOrDefault<TSource>(IObservable<TSource> source)
+        public TSource LastOrDefault<TSource>(IObservable<TSource> source)
         {
             return LastOrDefaultInternal(source, throwOnEmpty: false);
         }
 
         [return: MaybeNull]
-        public virtual TSource LastOrDefault<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
+        public TSource LastOrDefault<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
         {
             return LastOrDefault(Where(source, predicate));
         }
@@ -180,7 +180,7 @@ namespace System.Reactive.Linq
 
         #region + Latest +
 
-        public virtual IEnumerable<TSource> Latest<TSource>(IObservable<TSource> source)
+        public IEnumerable<TSource> Latest<TSource>(IObservable<TSource> source)
         {
             return new Latest<TSource>(source);
         }
@@ -189,7 +189,7 @@ namespace System.Reactive.Linq
 
         #region + MostRecent +
 
-        public virtual IEnumerable<TSource> MostRecent<TSource>(IObservable<TSource> source, TSource initialValue)
+        public IEnumerable<TSource> MostRecent<TSource>(IObservable<TSource> source, TSource initialValue)
         {
             return new MostRecent<TSource>(source, initialValue);
         }
@@ -198,7 +198,7 @@ namespace System.Reactive.Linq
 
         #region + Next +
 
-        public virtual IEnumerable<TSource> Next<TSource>(IObservable<TSource> source)
+        public IEnumerable<TSource> Next<TSource>(IObservable<TSource> source)
         {
             return new Next<TSource>(source);
         }
@@ -207,12 +207,12 @@ namespace System.Reactive.Linq
 
         #region Single
 
-        public virtual TSource Single<TSource>(IObservable<TSource> source)
+        public TSource Single<TSource>(IObservable<TSource> source)
         {
             return SingleOrDefaultInternal(source, throwOnEmpty: true)!;
         }
 
-        public virtual TSource Single<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
+        public TSource Single<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
         {
             return Single(Where(source, predicate));
         }
@@ -222,13 +222,13 @@ namespace System.Reactive.Linq
         #region SingleOrDefault
 
         [return: MaybeNull]
-        public virtual TSource SingleOrDefault<TSource>(IObservable<TSource> source)
+        public TSource SingleOrDefault<TSource>(IObservable<TSource> source)
         {
             return SingleOrDefaultInternal(source, throwOnEmpty: false);
         }
 
         [return: MaybeNull]
-        public virtual TSource SingleOrDefault<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
+        public TSource SingleOrDefault<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
         {
             return SingleOrDefault(Where(source, predicate));
         }
@@ -262,7 +262,7 @@ namespace System.Reactive.Linq
 
         #region Wait
 
-        public virtual TSource Wait<TSource>(IObservable<TSource> source)
+        public TSource Wait<TSource>(IObservable<TSource> source)
         {
             return LastOrDefaultInternal(source, true)!;
         }

@@ -16,7 +16,7 @@ namespace System.Reactive.Linq
     {
 #pragma warning disable IDE1006 // Naming Styles: 3rd party code is known to reflect for this specific field name
 #pragma warning disable IDE0044 // Make readonly: since 3rd party code reflects for this, we shouldn't pretend it won't change
-        private static IQueryLanguageEx s_impl = QueryServices.GetQueryImpl<IQueryLanguageEx>(new QueryLanguageEx());
+        private static readonly QueryLanguageEx s_impl = new();
 #pragma warning restore IDE1006, IDE0044 // Naming Styles, Make readonly
 
         #region Create

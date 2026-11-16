@@ -14,12 +14,12 @@ namespace System.Reactive.Linq
     {
         #region - Append -
 
-        public virtual IObservable<TSource> Append<TSource>(IObservable<TSource> source, TSource value)
+        public IObservable<TSource> Append<TSource>(IObservable<TSource> source, TSource value)
         {
             return Append_(source, value, SchedulerDefaults.ConstantTimeOperations);
         }
 
-        public virtual IObservable<TSource> Append<TSource>(IObservable<TSource> source, TSource value, IScheduler scheduler)
+        public IObservable<TSource> Append<TSource>(IObservable<TSource> source, TSource value, IScheduler scheduler)
         {
             return Append_(source, value, scheduler);
         }
@@ -41,7 +41,7 @@ namespace System.Reactive.Linq
 
         #region + AsObservable +
 
-        public virtual IObservable<TSource> AsObservable<TSource>(IObservable<TSource> source)
+        public IObservable<TSource> AsObservable<TSource>(IObservable<TSource> source)
         {
             if (source is AsObservable<TSource> asObservable)
             {
@@ -55,12 +55,12 @@ namespace System.Reactive.Linq
 
         #region + Buffer +
 
-        public virtual IObservable<IList<TSource>> Buffer<TSource>(IObservable<TSource> source, int count)
+        public IObservable<IList<TSource>> Buffer<TSource>(IObservable<TSource> source, int count)
         {
             return new Buffer<TSource>.CountExact(source, count);
         }
 
-        public virtual IObservable<IList<TSource>> Buffer<TSource>(IObservable<TSource> source, int count, int skip)
+        public IObservable<IList<TSource>> Buffer<TSource>(IObservable<TSource> source, int count, int skip)
         {
             if (count > skip)
             {
@@ -79,7 +79,7 @@ namespace System.Reactive.Linq
 
         #region + ResetExceptionDispatchState +
 
-        public virtual IObservable<TSource> ResetExceptionDispatchState<TSource>(IObservable<TSource> source)
+        public IObservable<TSource> ResetExceptionDispatchState<TSource>(IObservable<TSource> source)
         {
             return new ResetExceptionDispatchState<TSource>(source);
         }
@@ -88,7 +88,7 @@ namespace System.Reactive.Linq
 
         #region + Dematerialize +
 
-        public virtual IObservable<TSource> Dematerialize<TSource>(IObservable<Notification<TSource>> source)
+        public IObservable<TSource> Dematerialize<TSource>(IObservable<Notification<TSource>> source)
         {
             if (source is Materialize<TSource> materialize)
             {
@@ -102,22 +102,22 @@ namespace System.Reactive.Linq
 
         #region + DistinctUntilChanged +
 
-        public virtual IObservable<TSource> DistinctUntilChanged<TSource>(IObservable<TSource> source)
+        public IObservable<TSource> DistinctUntilChanged<TSource>(IObservable<TSource> source)
         {
             return DistinctUntilChanged_(source, x => x, EqualityComparer<TSource>.Default);
         }
 
-        public virtual IObservable<TSource> DistinctUntilChanged<TSource>(IObservable<TSource> source, IEqualityComparer<TSource> comparer)
+        public IObservable<TSource> DistinctUntilChanged<TSource>(IObservable<TSource> source, IEqualityComparer<TSource> comparer)
         {
             return DistinctUntilChanged_(source, x => x, comparer);
         }
 
-        public virtual IObservable<TSource> DistinctUntilChanged<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector)
+        public IObservable<TSource> DistinctUntilChanged<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector)
         {
             return DistinctUntilChanged_(source, keySelector, EqualityComparer<TKey>.Default);
         }
 
-        public virtual IObservable<TSource> DistinctUntilChanged<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
+        public IObservable<TSource> DistinctUntilChanged<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
         {
             return DistinctUntilChanged_(source, keySelector, comparer);
         }
@@ -131,27 +131,27 @@ namespace System.Reactive.Linq
 
         #region + Do +
 
-        public virtual IObservable<TSource> Do<TSource>(IObservable<TSource> source, Action<TSource> onNext)
+        public IObservable<TSource> Do<TSource>(IObservable<TSource> source, Action<TSource> onNext)
         {
             return new Do<TSource>.OnNext(source, onNext);
         }
 
-        public virtual IObservable<TSource> Do<TSource>(IObservable<TSource> source, Action<TSource> onNext, Action onCompleted)
+        public IObservable<TSource> Do<TSource>(IObservable<TSource> source, Action<TSource> onNext, Action onCompleted)
         {
             return Do_(source, onNext, Stubs<Exception>.Ignore, onCompleted);
         }
 
-        public virtual IObservable<TSource> Do<TSource>(IObservable<TSource> source, Action<TSource> onNext, Action<Exception> onError)
+        public IObservable<TSource> Do<TSource>(IObservable<TSource> source, Action<TSource> onNext, Action<Exception> onError)
         {
             return Do_(source, onNext, onError, Stubs.Nop);
         }
 
-        public virtual IObservable<TSource> Do<TSource>(IObservable<TSource> source, Action<TSource> onNext, Action<Exception> onError, Action onCompleted)
+        public IObservable<TSource> Do<TSource>(IObservable<TSource> source, Action<TSource> onNext, Action<Exception> onError, Action onCompleted)
         {
             return Do_(source, onNext, onError, onCompleted);
         }
 
-        public virtual IObservable<TSource> Do<TSource>(IObservable<TSource> source, IObserver<TSource> observer)
+        public IObservable<TSource> Do<TSource>(IObservable<TSource> source, IObserver<TSource> observer)
         {
             return new Do<TSource>.Observer(source, observer);
         }
@@ -165,7 +165,7 @@ namespace System.Reactive.Linq
 
         #region + Finally +
 
-        public virtual IObservable<TSource> Finally<TSource>(IObservable<TSource> source, Action finallyAction)
+        public IObservable<TSource> Finally<TSource>(IObservable<TSource> source, Action finallyAction)
         {
             return new Finally<TSource>(source, finallyAction);
         }
@@ -174,7 +174,7 @@ namespace System.Reactive.Linq
 
         #region + IgnoreElements +
 
-        public virtual IObservable<TSource> IgnoreElements<TSource>(IObservable<TSource> source)
+        public IObservable<TSource> IgnoreElements<TSource>(IObservable<TSource> source)
         {
             if (source is IgnoreElements<TSource> ignoreElements)
             {
@@ -188,7 +188,7 @@ namespace System.Reactive.Linq
 
         #region + Materialize +
 
-        public virtual IObservable<Notification<TSource>> Materialize<TSource>(IObservable<TSource> source)
+        public IObservable<Notification<TSource>> Materialize<TSource>(IObservable<TSource> source)
         {
             //
             // NOTE: Peephole optimization of xs.Dematerialize().Materialize() should not be performed. It's possible for xs to
@@ -203,12 +203,12 @@ namespace System.Reactive.Linq
 
         #region - Prepend -
 
-        public virtual IObservable<TSource> Prepend<TSource>(IObservable<TSource> source, TSource value)
+        public IObservable<TSource> Prepend<TSource>(IObservable<TSource> source, TSource value)
         {
             return Prepend_(source, value, SchedulerDefaults.ConstantTimeOperations);
         }
 
-        public virtual IObservable<TSource> Prepend<TSource>(IObservable<TSource> source, TSource value, IScheduler scheduler)
+        public IObservable<TSource> Prepend<TSource>(IObservable<TSource> source, TSource value, IScheduler scheduler)
         {
             return Prepend_(source, value, scheduler);
         }
@@ -232,7 +232,7 @@ namespace System.Reactive.Linq
 
         #region - Repeat -
 
-        public virtual IObservable<TSource> Repeat<TSource>(IObservable<TSource> source)
+        public IObservable<TSource> Repeat<TSource>(IObservable<TSource> source)
         {
             return RepeatInfinite(source).Concat();
         }
@@ -245,12 +245,12 @@ namespace System.Reactive.Linq
             }
         }
 
-        public virtual IObservable<TSource> Repeat<TSource>(IObservable<TSource> source, int repeatCount)
+        public IObservable<TSource> Repeat<TSource>(IObservable<TSource> source, int repeatCount)
         {
             return Enumerable.Repeat(source, repeatCount).Concat();
         }
 
-        public virtual IObservable<TSource> RepeatWhen<TSource, TSignal>(IObservable<TSource> source, Func<IObservable<object>, IObservable<TSignal>> handler)
+        public IObservable<TSource> RepeatWhen<TSource, TSignal>(IObservable<TSource> source, Func<IObservable<object>, IObservable<TSignal>> handler)
         {
             return new RepeatWhen<TSource, TSignal>(source, handler);
         }
@@ -259,17 +259,17 @@ namespace System.Reactive.Linq
 
         #region - Retry -
 
-        public virtual IObservable<TSource> Retry<TSource>(IObservable<TSource> source)
+        public IObservable<TSource> Retry<TSource>(IObservable<TSource> source)
         {
             return RepeatInfinite(source).Catch();
         }
 
-        public virtual IObservable<TSource> Retry<TSource>(IObservable<TSource> source, int retryCount)
+        public IObservable<TSource> Retry<TSource>(IObservable<TSource> source, int retryCount)
         {
             return Enumerable.Repeat(source, retryCount).Catch();
         }
 
-        public virtual IObservable<TSource> RetryWhen<TSource, TSignal>(IObservable<TSource> source, Func<IObservable<Exception>, IObservable<TSignal>> handler)
+        public IObservable<TSource> RetryWhen<TSource, TSignal>(IObservable<TSource> source, Func<IObservable<Exception>, IObservable<TSignal>> handler)
         {
             return new RetryWhen<TSource, TSignal>(source, handler);
         }
@@ -279,12 +279,12 @@ namespace System.Reactive.Linq
 
         #region + Scan +
 
-        public virtual IObservable<TAccumulate> Scan<TSource, TAccumulate>(IObservable<TSource> source, TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> accumulator)
+        public IObservable<TAccumulate> Scan<TSource, TAccumulate>(IObservable<TSource> source, TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> accumulator)
         {
             return new Scan<TSource, TAccumulate>(source, seed, accumulator);
         }
 
-        public virtual IObservable<TSource> Scan<TSource>(IObservable<TSource> source, Func<TSource, TSource, TSource> accumulator)
+        public IObservable<TSource> Scan<TSource>(IObservable<TSource> source, Func<TSource, TSource, TSource> accumulator)
         {
             return new Scan<TSource>(source, accumulator);
         }
@@ -293,7 +293,7 @@ namespace System.Reactive.Linq
 
         #region + SkipLast +
 
-        public virtual IObservable<TSource> SkipLast<TSource>(IObservable<TSource> source, int count)
+        public IObservable<TSource> SkipLast<TSource>(IObservable<TSource> source, int count)
         {
             return new SkipLast<TSource>.Count(source, count);
         }
@@ -302,22 +302,22 @@ namespace System.Reactive.Linq
 
         #region - StartWith -
 
-        public virtual IObservable<TSource> StartWith<TSource>(IObservable<TSource> source, params TSource[] values)
+        public IObservable<TSource> StartWith<TSource>(IObservable<TSource> source, params TSource[] values)
         {
             return StartWith_(source, SchedulerDefaults.ConstantTimeOperations, values);
         }
 
-        public virtual IObservable<TSource> StartWith<TSource>(IObservable<TSource> source, IScheduler scheduler, params TSource[] values)
+        public IObservable<TSource> StartWith<TSource>(IObservable<TSource> source, IScheduler scheduler, params TSource[] values)
         {
             return StartWith_(source, scheduler, values);
         }
 
-        public virtual IObservable<TSource> StartWith<TSource>(IObservable<TSource> source, IEnumerable<TSource> values)
+        public IObservable<TSource> StartWith<TSource>(IObservable<TSource> source, IEnumerable<TSource> values)
         {
             return StartWith(source, SchedulerDefaults.ConstantTimeOperations, values);
         }
 
-        public virtual IObservable<TSource> StartWith<TSource>(IObservable<TSource> source, IScheduler scheduler, IEnumerable<TSource> values)
+        public IObservable<TSource> StartWith<TSource>(IObservable<TSource> source, IScheduler scheduler, IEnumerable<TSource> values)
         {
             //
             // NOTE: For some reason, someone introduced this signature in the Observable class, which is inconsistent with the Rx pattern
@@ -343,12 +343,12 @@ namespace System.Reactive.Linq
 
         #region + TakeLast +
 
-        public virtual IObservable<TSource> TakeLast<TSource>(IObservable<TSource> source, int count)
+        public IObservable<TSource> TakeLast<TSource>(IObservable<TSource> source, int count)
         {
             return TakeLast_(source, count, SchedulerDefaults.Iteration);
         }
 
-        public virtual IObservable<TSource> TakeLast<TSource>(IObservable<TSource> source, int count, IScheduler scheduler)
+        public IObservable<TSource> TakeLast<TSource>(IObservable<TSource> source, int count, IScheduler scheduler)
         {
             return TakeLast_(source, count, scheduler);
         }
@@ -358,7 +358,7 @@ namespace System.Reactive.Linq
             return new TakeLast<TSource>.Count(source, count, scheduler);
         }
 
-        public virtual IObservable<IList<TSource>> TakeLastBuffer<TSource>(IObservable<TSource> source, int count)
+        public IObservable<IList<TSource>> TakeLastBuffer<TSource>(IObservable<TSource> source, int count)
         {
             return new TakeLastBuffer<TSource>.Count(source, count);
         }
@@ -367,12 +367,12 @@ namespace System.Reactive.Linq
 
         #region + Window +
 
-        public virtual IObservable<IObservable<TSource>> Window<TSource>(IObservable<TSource> source, int count, int skip)
+        public IObservable<IObservable<TSource>> Window<TSource>(IObservable<TSource> source, int count, int skip)
         {
             return Window_(source, count, skip);
         }
 
-        public virtual IObservable<IObservable<TSource>> Window<TSource>(IObservable<TSource> source, int count)
+        public IObservable<IObservable<TSource>> Window<TSource>(IObservable<TSource> source, int count)
         {
             return Window_(source, count, count);
         }

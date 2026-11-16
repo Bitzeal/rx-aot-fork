@@ -11,12 +11,12 @@ namespace System.Reactive.Linq
     {
         #region + ObserveOn +
 
-        public virtual IObservable<TSource> ObserveOn<TSource>(IObservable<TSource> source, IScheduler scheduler)
+        public IObservable<TSource> ObserveOn<TSource>(IObservable<TSource> source, IScheduler scheduler)
         {
             return Synchronization.ObserveOn(source, scheduler);
         }
 
-        public virtual IObservable<TSource> ObserveOn<TSource>(IObservable<TSource> source, SynchronizationContext context)
+        public IObservable<TSource> ObserveOn<TSource>(IObservable<TSource> source, SynchronizationContext context)
         {
             return Synchronization.ObserveOn(source, context);
         }
@@ -25,12 +25,12 @@ namespace System.Reactive.Linq
 
         #region + SubscribeOn +
 
-        public virtual IObservable<TSource> SubscribeOn<TSource>(IObservable<TSource> source, IScheduler scheduler)
+        public IObservable<TSource> SubscribeOn<TSource>(IObservable<TSource> source, IScheduler scheduler)
         {
             return Synchronization.SubscribeOn(source, scheduler);
         }
 
-        public virtual IObservable<TSource> SubscribeOn<TSource>(IObservable<TSource> source, SynchronizationContext context)
+        public IObservable<TSource> SubscribeOn<TSource>(IObservable<TSource> source, SynchronizationContext context)
         {
             return Synchronization.SubscribeOn(source, context);
         }
@@ -39,12 +39,12 @@ namespace System.Reactive.Linq
 
         #region + Synchronize +
 
-        public virtual IObservable<TSource> Synchronize<TSource>(IObservable<TSource> source)
+        public IObservable<TSource> Synchronize<TSource>(IObservable<TSource> source)
         {
             return Synchronization.Synchronize(source);
         }
 
-        public virtual IObservable<TSource> Synchronize<TSource>(IObservable<TSource> source, object gate)
+        public IObservable<TSource> Synchronize<TSource>(IObservable<TSource> source, object gate)
         {
             return Synchronization.Synchronize(source, gate);
         }

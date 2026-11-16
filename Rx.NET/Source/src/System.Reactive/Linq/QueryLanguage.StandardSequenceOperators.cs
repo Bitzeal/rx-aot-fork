@@ -15,7 +15,7 @@ namespace System.Reactive.Linq
     {
         #region + Cast +
 
-        public virtual IObservable<TResult> Cast<TResult>(IObservable<object> source)
+        public IObservable<TResult> Cast<TResult>(IObservable<object> source)
         {
             return new Cast<object, TResult>(source);
         }
@@ -24,12 +24,12 @@ namespace System.Reactive.Linq
 
         #region + DefaultIfEmpty +
 
-        public virtual IObservable<TSource?> DefaultIfEmpty<TSource>(IObservable<TSource> source)
+        public IObservable<TSource?> DefaultIfEmpty<TSource>(IObservable<TSource> source)
         {
             return new DefaultIfEmpty<TSource>(source, default!);
         }
 
-        public virtual IObservable<TSource> DefaultIfEmpty<TSource>(IObservable<TSource> source, TSource defaultValue)
+        public IObservable<TSource> DefaultIfEmpty<TSource>(IObservable<TSource> source, TSource defaultValue)
         {
             return new DefaultIfEmpty<TSource>(source, defaultValue);
         }
@@ -38,22 +38,22 @@ namespace System.Reactive.Linq
 
         #region + Distinct +
 
-        public virtual IObservable<TSource> Distinct<TSource>(IObservable<TSource> source)
+        public IObservable<TSource> Distinct<TSource>(IObservable<TSource> source)
         {
             return new Distinct<TSource, TSource>(source, x => x, EqualityComparer<TSource>.Default);
         }
 
-        public virtual IObservable<TSource> Distinct<TSource>(IObservable<TSource> source, IEqualityComparer<TSource> comparer)
+        public IObservable<TSource> Distinct<TSource>(IObservable<TSource> source, IEqualityComparer<TSource> comparer)
         {
             return new Distinct<TSource, TSource>(source, x => x, comparer);
         }
 
-        public virtual IObservable<TSource> Distinct<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector)
+        public IObservable<TSource> Distinct<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector)
         {
             return new Distinct<TSource, TKey>(source, keySelector, EqualityComparer<TKey>.Default);
         }
 
-        public virtual IObservable<TSource> Distinct<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
+        public IObservable<TSource> Distinct<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
         {
             return new Distinct<TSource, TKey>(source, keySelector, comparer);
         }
@@ -62,42 +62,42 @@ namespace System.Reactive.Linq
 
         #region + GroupBy +
 
-        public virtual IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector)
+        public IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector)
         {
             return GroupBy_(source, keySelector, elementSelector, null, EqualityComparer<TKey>.Default);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TSource>> GroupBy<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
+        public IObservable<IGroupedObservable<TKey, TSource>> GroupBy<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
         {
             return GroupBy_(source, keySelector, x => x, null, comparer);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TSource>> GroupBy<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector)
+        public IObservable<IGroupedObservable<TKey, TSource>> GroupBy<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector)
         {
             return GroupBy_(source, keySelector, x => x, null, EqualityComparer<TKey>.Default);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer)
+        public IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer)
         {
             return GroupBy_(source, keySelector, elementSelector, null, comparer);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, int capacity)
+        public IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, int capacity)
         {
             return GroupBy_(source, keySelector, elementSelector, capacity, EqualityComparer<TKey>.Default);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TSource>> GroupBy<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector, int capacity, IEqualityComparer<TKey> comparer)
+        public IObservable<IGroupedObservable<TKey, TSource>> GroupBy<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector, int capacity, IEqualityComparer<TKey> comparer)
         {
             return GroupBy_(source, keySelector, x => x, capacity, comparer);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TSource>> GroupBy<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector, int capacity)
+        public IObservable<IGroupedObservable<TKey, TSource>> GroupBy<TSource, TKey>(IObservable<TSource> source, Func<TSource, TKey> keySelector, int capacity)
         {
             return GroupBy_(source, keySelector, x => x, capacity, EqualityComparer<TKey>.Default);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, int capacity, IEqualityComparer<TKey> comparer)
+        public IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, int capacity, IEqualityComparer<TKey> comparer)
         {
             return GroupBy_(source, keySelector, elementSelector, capacity, comparer);
         }
@@ -111,42 +111,42 @@ namespace System.Reactive.Linq
 
         #region + GroupByUntil +
 
-        public virtual IObservable<IGroupedObservable<TKey, TElement>> GroupByUntil<TSource, TKey, TElement, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<IGroupedObservable<TKey, TElement>, IObservable<TDuration>> durationSelector, IEqualityComparer<TKey> comparer)
+        public IObservable<IGroupedObservable<TKey, TElement>> GroupByUntil<TSource, TKey, TElement, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<IGroupedObservable<TKey, TElement>, IObservable<TDuration>> durationSelector, IEqualityComparer<TKey> comparer)
         {
             return GroupByUntil_(source, keySelector, elementSelector, durationSelector, null, comparer);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TElement>> GroupByUntil<TSource, TKey, TElement, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<IGroupedObservable<TKey, TElement>, IObservable<TDuration>> durationSelector)
+        public IObservable<IGroupedObservable<TKey, TElement>> GroupByUntil<TSource, TKey, TElement, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<IGroupedObservable<TKey, TElement>, IObservable<TDuration>> durationSelector)
         {
             return GroupByUntil_(source, keySelector, elementSelector, durationSelector, null, EqualityComparer<TKey>.Default);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TSource>> GroupByUntil<TSource, TKey, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>> durationSelector, IEqualityComparer<TKey> comparer)
+        public IObservable<IGroupedObservable<TKey, TSource>> GroupByUntil<TSource, TKey, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>> durationSelector, IEqualityComparer<TKey> comparer)
         {
             return GroupByUntil_(source, keySelector, x => x, durationSelector, null, comparer);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TSource>> GroupByUntil<TSource, TKey, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>> durationSelector)
+        public IObservable<IGroupedObservable<TKey, TSource>> GroupByUntil<TSource, TKey, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>> durationSelector)
         {
             return GroupByUntil_(source, keySelector, x => x, durationSelector, null, EqualityComparer<TKey>.Default);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TElement>> GroupByUntil<TSource, TKey, TElement, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<IGroupedObservable<TKey, TElement>, IObservable<TDuration>> durationSelector, int capacity, IEqualityComparer<TKey> comparer)
+        public IObservable<IGroupedObservable<TKey, TElement>> GroupByUntil<TSource, TKey, TElement, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<IGroupedObservable<TKey, TElement>, IObservable<TDuration>> durationSelector, int capacity, IEqualityComparer<TKey> comparer)
         {
             return GroupByUntil_(source, keySelector, elementSelector, durationSelector, capacity, comparer);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TElement>> GroupByUntil<TSource, TKey, TElement, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<IGroupedObservable<TKey, TElement>, IObservable<TDuration>> durationSelector, int capacity)
+        public IObservable<IGroupedObservable<TKey, TElement>> GroupByUntil<TSource, TKey, TElement, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<IGroupedObservable<TKey, TElement>, IObservable<TDuration>> durationSelector, int capacity)
         {
             return GroupByUntil_(source, keySelector, elementSelector, durationSelector, capacity, EqualityComparer<TKey>.Default);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TSource>> GroupByUntil<TSource, TKey, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>> durationSelector, int capacity, IEqualityComparer<TKey> comparer)
+        public IObservable<IGroupedObservable<TKey, TSource>> GroupByUntil<TSource, TKey, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>> durationSelector, int capacity, IEqualityComparer<TKey> comparer)
         {
             return GroupByUntil_(source, keySelector, x => x, durationSelector, capacity, comparer);
         }
 
-        public virtual IObservable<IGroupedObservable<TKey, TSource>> GroupByUntil<TSource, TKey, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>> durationSelector, int capacity)
+        public IObservable<IGroupedObservable<TKey, TSource>> GroupByUntil<TSource, TKey, TDuration>(IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>> durationSelector, int capacity)
         {
             return GroupByUntil_(source, keySelector, x => x, durationSelector, capacity, EqualityComparer<TKey>.Default);
         }
@@ -160,7 +160,7 @@ namespace System.Reactive.Linq
 
         #region + GroupJoin +
 
-        public virtual IObservable<TResult> GroupJoin<TLeft, TRight, TLeftDuration, TRightDuration, TResult>(IObservable<TLeft> left, IObservable<TRight> right, Func<TLeft, IObservable<TLeftDuration>> leftDurationSelector, Func<TRight, IObservable<TRightDuration>> rightDurationSelector, Func<TLeft, IObservable<TRight>, TResult> resultSelector)
+        public IObservable<TResult> GroupJoin<TLeft, TRight, TLeftDuration, TRightDuration, TResult>(IObservable<TLeft> left, IObservable<TRight> right, Func<TLeft, IObservable<TLeftDuration>> leftDurationSelector, Func<TRight, IObservable<TRightDuration>> rightDurationSelector, Func<TLeft, IObservable<TRight>, TResult> resultSelector)
         {
             return GroupJoin_(left, right, leftDurationSelector, rightDurationSelector, resultSelector);
         }
@@ -174,7 +174,7 @@ namespace System.Reactive.Linq
 
         #region + Join +
 
-        public virtual IObservable<TResult> Join<TLeft, TRight, TLeftDuration, TRightDuration, TResult>(IObservable<TLeft> left, IObservable<TRight> right, Func<TLeft, IObservable<TLeftDuration>> leftDurationSelector, Func<TRight, IObservable<TRightDuration>> rightDurationSelector, Func<TLeft, TRight, TResult> resultSelector)
+        public IObservable<TResult> Join<TLeft, TRight, TLeftDuration, TRightDuration, TResult>(IObservable<TLeft> left, IObservable<TRight> right, Func<TLeft, IObservable<TLeftDuration>> leftDurationSelector, Func<TRight, IObservable<TRightDuration>> rightDurationSelector, Func<TLeft, TRight, TResult> resultSelector)
         {
             return Join_(left, right, leftDurationSelector, rightDurationSelector, resultSelector);
         }
@@ -188,7 +188,7 @@ namespace System.Reactive.Linq
 
         #region + OfType +
 
-        public virtual IObservable<TResult> OfType<TResult>(IObservable<object?> source)
+        public IObservable<TResult> OfType<TResult>(IObservable<object?> source)
         {
             return new OfType<object?, TResult>(source);
         }
@@ -197,14 +197,14 @@ namespace System.Reactive.Linq
 
         #region + Select +
 
-        public virtual IObservable<TResult> Select<TSource, TResult>(IObservable<TSource> source, Func<TSource, TResult> selector)
+        public IObservable<TResult> Select<TSource, TResult>(IObservable<TSource> source, Func<TSource, TResult> selector)
         {
             // CONSIDER: Add fusion for Select/Select pairs.
 
             return new Select<TSource, TResult>.Selector(source, selector);
         }
 
-        public virtual IObservable<TResult> Select<TSource, TResult>(IObservable<TSource> source, Func<TSource, int, TResult> selector)
+        public IObservable<TResult> Select<TSource, TResult>(IObservable<TSource> source, Func<TSource, int, TResult> selector)
         {
             return new Select<TSource, TResult>.SelectorIndexed(source, selector);
         }
@@ -213,67 +213,67 @@ namespace System.Reactive.Linq
 
         #region + SelectMany +
 
-        public virtual IObservable<TOther> SelectMany<TSource, TOther>(IObservable<TSource> source, IObservable<TOther> other)
+        public IObservable<TOther> SelectMany<TSource, TOther>(IObservable<TSource> source, IObservable<TOther> other)
         {
             return SelectMany_(source, _ => other);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, IObservable<TResult>> selector)
+        public IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, IObservable<TResult>> selector)
         {
             return SelectMany_(source, selector);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, int, IObservable<TResult>> selector)
+        public IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, int, IObservable<TResult>> selector)
         {
             return SelectMany_(source, selector);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, Task<TResult>> selector)
+        public IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, Task<TResult>> selector)
         {
             return new SelectMany<TSource, TResult>.TaskSelector(source, (x, token) => selector(x));
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, int, Task<TResult>> selector)
+        public IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, int, Task<TResult>> selector)
         {
             return new SelectMany<TSource, TResult>.TaskSelectorIndexed(source, (x, i, token) => selector(x, i));
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, CancellationToken, Task<TResult>> selector)
+        public IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, CancellationToken, Task<TResult>> selector)
         {
             return new SelectMany<TSource, TResult>.TaskSelector(source, selector);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, int, CancellationToken, Task<TResult>> selector)
+        public IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, int, CancellationToken, Task<TResult>> selector)
         {
             return new SelectMany<TSource, TResult>.TaskSelectorIndexed(source, selector);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TCollection, TResult>(IObservable<TSource> source, Func<TSource, IObservable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector)
+        public IObservable<TResult> SelectMany<TSource, TCollection, TResult>(IObservable<TSource> source, Func<TSource, IObservable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector)
         {
             return SelectMany_(source, collectionSelector, resultSelector);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TCollection, TResult>(IObservable<TSource> source, Func<TSource, int, IObservable<TCollection>> collectionSelector, Func<TSource, int, TCollection, int, TResult> resultSelector)
+        public IObservable<TResult> SelectMany<TSource, TCollection, TResult>(IObservable<TSource> source, Func<TSource, int, IObservable<TCollection>> collectionSelector, Func<TSource, int, TCollection, int, TResult> resultSelector)
         {
             return SelectMany_(source, collectionSelector, resultSelector);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TTaskResult, TResult>(IObservable<TSource> source, Func<TSource, Task<TTaskResult>> taskSelector, Func<TSource, TTaskResult, TResult> resultSelector)
+        public IObservable<TResult> SelectMany<TSource, TTaskResult, TResult>(IObservable<TSource> source, Func<TSource, Task<TTaskResult>> taskSelector, Func<TSource, TTaskResult, TResult> resultSelector)
         {
             return new SelectMany<TSource, TTaskResult, TResult>.TaskSelector(source, (x, token) => taskSelector(x), resultSelector);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TTaskResult, TResult>(IObservable<TSource> source, Func<TSource, int, Task<TTaskResult>> taskSelector, Func<TSource, int, TTaskResult, TResult> resultSelector)
+        public IObservable<TResult> SelectMany<TSource, TTaskResult, TResult>(IObservable<TSource> source, Func<TSource, int, Task<TTaskResult>> taskSelector, Func<TSource, int, TTaskResult, TResult> resultSelector)
         {
             return new SelectMany<TSource, TTaskResult, TResult>.TaskSelectorIndexed(source, (x, i, token) => taskSelector(x, i), resultSelector);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TTaskResult, TResult>(IObservable<TSource> source, Func<TSource, CancellationToken, Task<TTaskResult>> taskSelector, Func<TSource, TTaskResult, TResult> resultSelector)
+        public IObservable<TResult> SelectMany<TSource, TTaskResult, TResult>(IObservable<TSource> source, Func<TSource, CancellationToken, Task<TTaskResult>> taskSelector, Func<TSource, TTaskResult, TResult> resultSelector)
         {
             return new SelectMany<TSource, TTaskResult, TResult>.TaskSelector(source, taskSelector, resultSelector);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TTaskResult, TResult>(IObservable<TSource> source, Func<TSource, int, CancellationToken, Task<TTaskResult>> taskSelector, Func<TSource, int, TTaskResult, TResult> resultSelector)
+        public IObservable<TResult> SelectMany<TSource, TTaskResult, TResult>(IObservable<TSource> source, Func<TSource, int, CancellationToken, Task<TTaskResult>> taskSelector, Func<TSource, int, TTaskResult, TResult> resultSelector)
         {
             return new SelectMany<TSource, TTaskResult, TResult>.TaskSelectorIndexed(source, taskSelector, resultSelector);
         }
@@ -298,32 +298,32 @@ namespace System.Reactive.Linq
             return new SelectMany<TSource, TCollection, TResult>.ObservableSelectorIndexed(source, collectionSelector, resultSelector);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, IObservable<TResult>> onNext, Func<Exception, IObservable<TResult>> onError, Func<IObservable<TResult>> onCompleted)
+        public IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, IObservable<TResult>> onNext, Func<Exception, IObservable<TResult>> onError, Func<IObservable<TResult>> onCompleted)
         {
             return new SelectMany<TSource, TResult>.ObservableSelectors(source, onNext, onError, onCompleted);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, int, IObservable<TResult>> onNext, Func<Exception, IObservable<TResult>> onError, Func<IObservable<TResult>> onCompleted)
+        public IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, int, IObservable<TResult>> onNext, Func<Exception, IObservable<TResult>> onError, Func<IObservable<TResult>> onCompleted)
         {
             return new SelectMany<TSource, TResult>.ObservableSelectorsIndexed(source, onNext, onError, onCompleted);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, IEnumerable<TResult>> selector)
+        public IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, IEnumerable<TResult>> selector)
         {
             return new SelectMany<TSource, TResult>.EnumerableSelector(source, selector);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, int, IEnumerable<TResult>> selector)
+        public IObservable<TResult> SelectMany<TSource, TResult>(IObservable<TSource> source, Func<TSource, int, IEnumerable<TResult>> selector)
         {
             return new SelectMany<TSource, TResult>.EnumerableSelectorIndexed(source, selector);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TCollection, TResult>(IObservable<TSource> source, Func<TSource, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector)
+        public IObservable<TResult> SelectMany<TSource, TCollection, TResult>(IObservable<TSource> source, Func<TSource, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector)
         {
             return SelectMany_(source, collectionSelector, resultSelector);
         }
 
-        public virtual IObservable<TResult> SelectMany<TSource, TCollection, TResult>(IObservable<TSource> source, Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, int, TCollection, int, TResult> resultSelector)
+        public IObservable<TResult> SelectMany<TSource, TCollection, TResult>(IObservable<TSource> source, Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, int, TCollection, int, TResult> resultSelector)
         {
             return SelectMany_(source, collectionSelector, resultSelector);
         }
@@ -342,7 +342,7 @@ namespace System.Reactive.Linq
 
         #region + Skip +
 
-        public virtual IObservable<TSource> Skip<TSource>(IObservable<TSource> source, int count)
+        public IObservable<TSource> Skip<TSource>(IObservable<TSource> source, int count)
         {
             if (source is Skip<TSource>.Count skip)
             {
@@ -356,12 +356,12 @@ namespace System.Reactive.Linq
 
         #region + SkipWhile +
 
-        public virtual IObservable<TSource> SkipWhile<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
+        public IObservable<TSource> SkipWhile<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
         {
             return new SkipWhile<TSource>.Predicate(source, predicate);
         }
 
-        public virtual IObservable<TSource> SkipWhile<TSource>(IObservable<TSource> source, Func<TSource, int, bool> predicate)
+        public IObservable<TSource> SkipWhile<TSource>(IObservable<TSource> source, Func<TSource, int, bool> predicate)
         {
             return new SkipWhile<TSource>.PredicateIndexed(source, predicate);
         }
@@ -370,7 +370,7 @@ namespace System.Reactive.Linq
 
         #region + Take +
 
-        public virtual IObservable<TSource> Take<TSource>(IObservable<TSource> source, int count)
+        public IObservable<TSource> Take<TSource>(IObservable<TSource> source, int count)
         {
             if (count == 0)
             {
@@ -380,7 +380,7 @@ namespace System.Reactive.Linq
             return Take_(source, count);
         }
 
-        public virtual IObservable<TSource> Take<TSource>(IObservable<TSource> source, int count, IScheduler scheduler)
+        public IObservable<TSource> Take<TSource>(IObservable<TSource> source, int count, IScheduler scheduler)
         {
             if (count == 0)
             {
@@ -404,12 +404,12 @@ namespace System.Reactive.Linq
 
         #region + TakeWhile +
 
-        public virtual IObservable<TSource> TakeWhile<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
+        public IObservable<TSource> TakeWhile<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
         {
             return new TakeWhile<TSource>.Predicate(source, predicate);
         }
 
-        public virtual IObservable<TSource> TakeWhile<TSource>(IObservable<TSource> source, Func<TSource, int, bool> predicate)
+        public IObservable<TSource> TakeWhile<TSource>(IObservable<TSource> source, Func<TSource, int, bool> predicate)
         {
             return new TakeWhile<TSource>.PredicateIndexed(source, predicate);
         }
@@ -418,7 +418,7 @@ namespace System.Reactive.Linq
 
         #region + Where +
 
-        public virtual IObservable<TSource> Where<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
+        public IObservable<TSource> Where<TSource>(IObservable<TSource> source, Func<TSource, bool> predicate)
         {
             if (source is Where<TSource>.Predicate where)
             {
@@ -428,7 +428,7 @@ namespace System.Reactive.Linq
             return new Where<TSource>.Predicate(source, predicate);
         }
 
-        public virtual IObservable<TSource> Where<TSource>(IObservable<TSource> source, Func<TSource, int, bool> predicate)
+        public IObservable<TSource> Where<TSource>(IObservable<TSource> source, Func<TSource, int, bool> predicate)
         {
             return new Where<TSource>.PredicateIndexed(source, predicate);
         }

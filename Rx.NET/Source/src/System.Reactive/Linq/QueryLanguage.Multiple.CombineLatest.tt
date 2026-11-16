@@ -24,7 +24,7 @@ for (int i = 3; i <= 16; i++)
     var sources = string.Join(", ", Enumerable.Range(1, i).Select(j => "source" + j));
 
 #>
-        public virtual IObservable<TResult> CombineLatest<<#=genArgs#>, TResult>(<#=parameters#>, Func<<#=genArgs#>, TResult> resultSelector)
+        public IObservable<TResult> CombineLatest<<#=genArgs#>, TResult>(<#=parameters#>, Func<<#=genArgs#>, TResult> resultSelector)
         {
             return new CombineLatest<<#=genArgs#>, TResult>(<#=sources#>, resultSelector);
         }
@@ -47,7 +47,7 @@ for (int i = 2; i <= 16; i++)
     var selector = "(" + vals + ") => (" + vals + ")";
 
 #>
-        public virtual IObservable<<#=tuple#>> CombineLatest<<#=genArgs#>>(<#=parameters#>)
+        public IObservable<<#=tuple#>> CombineLatest<<#=genArgs#>>(<#=parameters#>)
         {
             return new CombineLatest<<#=genArgs#>, <#=tuple#>>(<#=sources#>, <#=selector#>);
         }

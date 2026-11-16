@@ -12,11 +12,11 @@ namespace System.Reactive.Linq
 {
     using ObservableImpl;
 
-    internal partial class QueryLanguageEx : IQueryLanguageEx
+    internal sealed partial class QueryLanguageEx
     {
         #region Create
 
-        public virtual IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, IEnumerable<IObservable<object>>> iteratorMethod)
+        public IObservable<TResult> Create<TResult>(Func<IObserver<TResult>, IEnumerable<IObservable<object>>> iteratorMethod)
         {
             return new CreateWithEnumerableObservable<TResult>(iteratorMethod);
         }
@@ -63,7 +63,7 @@ namespace System.Reactive.Linq
             }
         }
 
-        public virtual IObservable<Unit> Create(Func<IEnumerable<IObservable<object>>> iteratorMethod)
+        public IObservable<Unit> Create(Func<IEnumerable<IObservable<object>>> iteratorMethod)
         {
             return new CreateWithOnlyEnumerableObservable<Unit>(iteratorMethod);
         }
@@ -89,7 +89,7 @@ namespace System.Reactive.Linq
 
         #region Expand
 
-        public virtual IObservable<TSource> Expand<TSource>(IObservable<TSource> source, Func<TSource, IObservable<TSource>> selector, IScheduler scheduler)
+        public IObservable<TSource> Expand<TSource>(IObservable<TSource> source, Func<TSource, IObservable<TSource>> selector, IScheduler scheduler)
         {
             return new ExpandObservable<TSource>(source, selector, scheduler);
         }
@@ -225,7 +225,7 @@ namespace System.Reactive.Linq
             }
         }
 
-        public virtual IObservable<TSource> Expand<TSource>(IObservable<TSource> source, Func<TSource, IObservable<TSource>> selector)
+        public IObservable<TSource> Expand<TSource>(IObservable<TSource> source, Func<TSource, IObservable<TSource>> selector)
         {
             return source.Expand(selector, SchedulerDefaults.Iteration);
         }
@@ -234,7 +234,7 @@ namespace System.Reactive.Linq
 
         #region ForkJoin
 
-        public virtual IObservable<TResult> ForkJoin<TFirst, TSecond, TResult>(IObservable<TFirst> first, IObservable<TSecond> second, Func<TFirst, TSecond, TResult> resultSelector)
+        public IObservable<TResult> ForkJoin<TFirst, TSecond, TResult>(IObservable<TFirst> first, IObservable<TSecond> second, Func<TFirst, TSecond, TResult> resultSelector)
         {
             return Combine<TFirst, TSecond, TResult>(first, second, (observer, leftSubscription, rightSubscription) =>
             {
@@ -335,12 +335,12 @@ namespace System.Reactive.Linq
             });
         }
 
-        public virtual IObservable<TSource[]> ForkJoin<TSource>(params IObservable<TSource>[] sources)
+        public IObservable<TSource[]> ForkJoin<TSource>(params IObservable<TSource>[] sources)
         {
             return sources.ForkJoin();
         }
 
-        public virtual IObservable<TSource[]> ForkJoin<TSource>(IEnumerable<IObservable<TSource>> sources)
+        public IObservable<TSource[]> ForkJoin<TSource>(IEnumerable<IObservable<TSource>> sources)
         {
             return new ForkJoinObservable<TSource>(sources);
         }
@@ -436,7 +436,7 @@ namespace System.Reactive.Linq
 
         #region Let
 
-        public virtual IObservable<TResult> Let<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> function)
+        public IObservable<TResult> Let<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, IObservable<TResult>> function)
         {
             return function(source);
         }
@@ -445,12 +445,12 @@ namespace System.Reactive.Linq
 
         #region ManySelect
 
-        public virtual IObservable<TResult> ManySelect<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, TResult> selector)
+        public IObservable<TResult> ManySelect<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, TResult> selector)
         {
             return ManySelect(source, selector, DefaultScheduler.Instance);
         }
 
-        public virtual IObservable<TResult> ManySelect<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, TResult> selector, IScheduler scheduler)
+        public IObservable<TResult> ManySelect<TSource, TResult>(IObservable<TSource> source, Func<IObservable<TSource>, TResult> selector, IScheduler scheduler)
         {
             return Observable.Defer(() =>
             {
@@ -526,7 +526,7 @@ namespace System.Reactive.Linq
 
         #region ToListObservable
 
-        public virtual ListObservable<TSource> ToListObservable<TSource>(IObservable<TSource> source)
+        public ListObservable<TSource> ToListObservable<TSource>(IObservable<TSource> source)
         {
             return new ListObservable<TSource>(source);
         }
@@ -535,7 +535,7 @@ namespace System.Reactive.Linq
 
         #region WithLatestFrom
 
-        public virtual IObservable<(TFirst First, TSecond Second)> WithLatestFrom<TFirst, TSecond>(IObservable<TFirst> first, IObservable<TSecond> second)
+        public IObservable<(TFirst First, TSecond Second)> WithLatestFrom<TFirst, TSecond>(IObservable<TFirst> first, IObservable<TSecond> second)
         {
             return new WithLatestFrom<TFirst, TSecond, (TFirst, TSecond)>(first, second, (t1, t2) => (t1, t2));
         }
@@ -544,7 +544,7 @@ namespace System.Reactive.Linq
 
         #region Zip
 
-        public virtual IObservable<(TFirst First, TSecond Second)> Zip<TFirst, TSecond>(IObservable<TFirst> first, IEnumerable<TSecond> second)
+        public IObservable<(TFirst First, TSecond Second)> Zip<TFirst, TSecond>(IObservable<TFirst> first, IEnumerable<TSecond> second)
         {
             return new Zip<TFirst, TSecond, (TFirst, TSecond)>.Enumerable(first, second, (t1, t2) => (t1, t2));
         }
