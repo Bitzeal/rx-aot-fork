@@ -32,11 +32,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.103" PrivateAssets="All"/>
     
-    <PackageReference
-      Include="Nerdbank.GitVersioning"
-      Version="3.9.50"
-      PrivateAssets="all"
-      Condition="$(ProjectName) != 'Tests.System.Reactive.Uwp.DeviceRunner'" />
+    <!-- AOT fork: versions are set by hand in AotFork.props, not by Nerdbank.GitVersioning. -->
   </ItemGroup>
 
   <ItemGroup>
@@ -119,6 +115,8 @@
     -->
     <NoWarn>$(NoWarn);CA1001;CA2213;CA1510;CA1512;CA1513;IDE0028;IDE0056;IDE0057;IDE0130;IDE0290;IDE0305;IDE0306</NoWarn>
   </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)AotFork.props" />
 
   <ItemGroup>
     <GlobalAnalyzerConfigFiles Include="$(MSBuildThisFileDirectory)analyzers.globalconfig" />

@@ -1,0 +1,27 @@
+<Project>
+  <!-- Bitzeal AOT fork: package ids and hand-set versions. See README.md at the repo root. -->
+  <PropertyGroup>
+    <!-- Raise on every fork release; NuGet caches packages by id and version. -->
+    <AotForkRelease>1</AotForkRelease>
+    <AotForkUpstreamVersion>7.0.0</AotForkUpstreamVersion>
+
+    <Version>$(AotForkUpstreamVersion)</Version>
+    <PackageVersion>$(AotForkUpstreamVersion)-aotfork.$(AotForkRelease)</PackageVersion>
+    <AssemblyVersion>$(AotForkUpstreamVersion).0</AssemblyVersion>
+    <!-- Above the official 7.0.0.53081, so the fork wins if both ever meet in one build. -->
+    <FileVersion>$(AotForkUpstreamVersion).$([MSBuild]::Add(60000, $(AotForkRelease)))</FileVersion>
+    <InformationalVersion>$(AotForkUpstreamVersion)+aot-fork.$(AotForkRelease)</InformationalVersion>
+
+    <PackageProjectUrl>https://github.com/Bitzeal/rx-aot-fork</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'System.Reactive'">
+    <PackageId>Bitzeal.Reactive.AotFork</PackageId>
+    <!-- The operator methods are no longer virtual, so the analyzer suggests making them static. -->
+    <NoWarn>$(NoWarn);CA1822</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'Microsoft.Reactive.Testing'">
+    <PackageId>Bitzeal.Reactive.AotFork.Testing</PackageId>
+  </PropertyGroup>
+</Project>

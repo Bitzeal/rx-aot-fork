@@ -10,10 +10,11 @@
     use this package without a reference to the Microsoft.WindowsDesktop.App framework.)
     Consequently, we must continue to provide net472 and uap10.0.18362 targets.
     -->
-    <TargetFrameworks>netstandard2.0;net472;uap10.0.18362;net8.0;net8.0-windows10.0.19041</TargetFrameworks>
+    <!-- AOT fork: only the targets Bitzeal apps use. -->
+    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <PackageTags>Rx;Reactive;Extensions;Observable;LINQ;Events</PackageTags>
-    <Description>Reactive Extensions (Rx) for .NET</Description>
+    <Description>Not the official Rx. System.Reactive 7.0.0 with one internal change for NativeAOT start time, same public API. See https://github.com/Bitzeal/rx-aot-fork</Description>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
 
     <RootNamespace>System.Reactive</RootNamespace>
@@ -26,7 +27,8 @@
   -->
 
   <PropertyGroup>
-    <EnablePackageValidation>true</EnablePackageValidation>
+    <!-- AOT fork: the baseline is the official package id with more targets; the API is checked by aot-fork/api-diff instead. -->
+    <EnablePackageValidation>false</EnablePackageValidation>
     <PackageValidationBaselineVersion>6.1.0</PackageValidationBaselineVersion>
   </PropertyGroup>
     
@@ -212,7 +214,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="build\NuGet.Readme.md" Pack="true" PackagePath="\readme.md" />
+    <None Include="..\..\..\..\aot-fork\NuGet.Readme.md" Pack="true" PackagePath="\readme.md" />
     <None Include="build\_._" PackagePath="build\net6.0;build\net6.0-windows10.0.19041" Pack="true" />
     <None Include="build\_._" PackagePath="buildTransitive\net6.0;buildTransitive\net6.0-windows10.0.19041" Pack="true" />
   </ItemGroup>
