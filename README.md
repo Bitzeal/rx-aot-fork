@@ -55,9 +55,10 @@ A second use of the same chain costs 0.00-0.06 ms in both.
 ## How it is checked
 
 - Rx's own test suite (`Tests.System.Reactive`, net10.0) passes on the fork: 3817 of 3817.
-- The public API of the fork and of upstream 7.0.0 is compared with
-  [aot-fork/api-diff](aot-fork/api-diff) (PublicApiGenerator), for the lib and the ref assemblies.
-  The diff must be empty.
+  With a planted bug (`Where` lets every value through) 33 tests fail, so the suite sees such a change.
+- The public API of the fork packages and of the official 7.0.0 packages is compared with
+  [aot-fork/api-diff.sh](aot-fork/api-diff.sh) (PublicApiGenerator): `lib` and `ref`, net8.0 and
+  netstandard2.0, and Microsoft.Reactive.Testing. All diffs are empty.
 - [aot-fork/check.sh](aot-fork/check.sh) fails if any `public virtual` is left in `QueryLanguage*`
   (for example a new operator after an upstream upgrade).
 
@@ -66,8 +67,10 @@ Commands, from `Rx.NET/Source`:
 ```sh
 ../../aot-fork/check.sh
 NBGV_GitEngine=Disabled dotnet test tests/Tests.System.Reactive -f net10.0 -c Release -p:EnableWindowsTargeting=true
-dotnet pack src/System.Reactive -c Release -o <folder>
-dotnet pack src/Microsoft.Reactive.Testing -c Release -o <folder>
+dotnet build src/System.Reactive.Analyzers -c Release
+dotnet pack src/System.Reactive -c Release -p:EnableWindowsTargeting=true -o <folder>
+dotnet pack src/Microsoft.Reactive.Testing -c Release -p:EnableWindowsTargeting=true -o <folder>
+../../aot-fork/api-diff.sh <official lib or ref System.Reactive.dll> <fork dll from the package>
 ```
 
 ## Versions
@@ -82,12 +85,12 @@ Set by hand in [Rx.NET/Source/AotFork.props](Rx.NET/Source/AotFork.props), not b
 ## Taking an upstream release
 
 Each Rx release gets a branch `aot/<version>`: the upstream tag plus the fork commits
-(the script result, then packaging). `main` points to the newest one.
+(the script result, then packaging and tools). `main` points to the newest one.
 
 1. `git fetch upstream --tags`, then `git switch -c aot/<new> rxnet-v<new>`.
 2. Run `aot-fork/apply.sh` (copy `aot-fork/` from `main` first) and commit the result.
    The script runs on the new source, so there are no merge conflicts in the operator files.
-3. Cherry-pick the packaging commit. Set `AotForkUpstreamVersion`, reset `AotForkRelease` to 1.
+3. Cherry-pick the fork commits that follow the script result (packaging, tools, README). Set `AotForkUpstreamVersion`, reset `AotForkRelease` to 1.
 4. Run the test suite, the API diff against the new upstream and `check.sh`.
 5. Pack, publish, and move `main` to the new branch.
 

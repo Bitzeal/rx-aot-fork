@@ -1,6 +1,7 @@
 #!/bin/sh
-# Prints the difference between the public API of two System.Reactive.dll files; exit 1 if they differ.
-# Usage: api-diff.sh <upstream System.Reactive.dll> <fork System.Reactive.dll>
+# Prints the difference between the public API of two assemblies; exit 1 if they differ.
+# Usage: api-diff.sh <upstream dll> <fork dll>
+# For Microsoft.Reactive.Testing.dll, put the matching System.Reactive.dll in the same folder.
 set -eu
 here="$(cd "$(dirname "$0")" && pwd)"
 out="$(mktemp -d)"

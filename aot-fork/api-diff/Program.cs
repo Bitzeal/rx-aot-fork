@@ -1,8 +1,15 @@
 using System.Reflection;
-using System.Runtime.Loader;
+using System.Runtime.InteropServices;
 using PublicApiGenerator;
 
-// Prints the public API of the System.Reactive.dll given as the first argument.
-var context = new AssemblyLoadContext(args[0], isCollectible: false);
-var assembly = context.LoadFromAssemblyPath(args[0]);
-Console.Write(ApiGenerator.GeneratePublicApi(assembly, new ApiGeneratorOptions { AllowNamespacePrefixes = ["System", "Microsoft"] }));
+// Prints the public API of the assembly given as the first argument (lib or ref assembly).
+// Assembly metadata (repository URL, commit) differs between builds and is left out.
+var path = Path.GetFullPath(args[0]);
+var resolver = new PathAssemblyResolver(Directory.GetFiles(RuntimeEnvironment.GetRuntimeDirectory(), "*.dll").Append(path));
+using var context = new MetadataLoadContext(resolver);
+var assembly = context.LoadFromAssemblyPath(path);
+Console.Write(assembly.GeneratePublicApi(new ApiGeneratorOptions
+{
+    AllowNamespacePrefixes = ["System", "Microsoft"],
+    ExcludeAttributes = ["System.Reflection.AssemblyMetadataAttribute"],
+}));
